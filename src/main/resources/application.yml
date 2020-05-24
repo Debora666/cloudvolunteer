@@ -1,0 +1,48 @@
+server:
+#  port: 8081
+  servlet:
+    context-path: /cloudvolunteer
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/clounvolunteer?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+#    username:
+#    password:
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: -1
+        max-wait: -1
+        max-idle: 8
+    timeout: 3000
+    database: 2
+
+
+  cache:
+    type: redis
+    redis:
+      use-key-prefix: false
+
+
+  jmx:
+    enabled: false    #避免2个springboot项目部署到tomcat时运行报错
+
+  mvc:
+    static-path-pattern: /**
+
+logging:
+  config: classpath:logback-spring.xml
