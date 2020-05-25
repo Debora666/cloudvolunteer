@@ -39,7 +39,7 @@ spring:
 
 
   jmx:
-    enabled: false    #避免2个springboot项目部署到tomcat时运行报错
+    enabled: false
 
   mvc:
     static-path-pattern: /**

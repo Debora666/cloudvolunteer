@@ -11,7 +11,7 @@ import java.io.Serializable;
  *  最后将它转化为json返回前端
  */
 @Data
-public class ResponseVo<T> implements Serializable {
+public class ResponseVO<T> implements Serializable {
     private T data;
     private String code;
     private String message;

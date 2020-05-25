@@ -3,7 +3,7 @@ package com.scnu.cloudvolunteer.app;
 import com.scnu.cloudvolunteer.base.enums.BaseEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.service.BaseService;
-import com.scnu.cloudvolunteer.base.vo.ResponseVo;
+import com.scnu.cloudvolunteer.base.vo.ResponseVO;
 import com.scnu.cloudvolunteer.utils.JsonUtil;
 import com.scnu.cloudvolunteer.utils.SpringUtil;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class AppController {
     public String app(@RequestBody String request, @RequestHeader String svc){
         logger.info("接收前端请求, svc:[{}], request:[{}]", svc, request);
         String response;
-        ResponseVo responseVo;
+        ResponseVO responseVo;
         try{
             // 校验svc
             validation(svc);
@@ -46,13 +46,13 @@ public class AppController {
             response = JsonUtil.object2Json(responseVo);
         } catch (BaseException e){
             logger.error("请求失败，code[{}], [{}]", e.getCode(), e.getMessage());
-            responseVo = new ResponseVo();
+            responseVo = new ResponseVO();
             responseVo.setCode(e.getCode());
             responseVo.setMessage(e.getMessage());
             return JsonUtil.object2Json(responseVo);
         }catch (Exception e){
             logger.error("请求未知异常", e);
-            responseVo = new ResponseVo();
+            responseVo = new ResponseVO();
             responseVo.setCode(BaseEnum.ERROR.getCode());
             responseVo.setMessage(BaseEnum.ERROR.getMessage());
             return JsonUtil.object2Json(responseVo);

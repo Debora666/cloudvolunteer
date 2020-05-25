@@ -1,7 +1,7 @@
 package com.scnu.cloudvolunteer.base.service;
 
 import com.scnu.cloudvolunteer.base.exception.BaseException;
-import com.scnu.cloudvolunteer.base.vo.ResponseVo;
+import com.scnu.cloudvolunteer.base.vo.ResponseVO;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -20,5 +20,5 @@ public interface BaseService {
       * @throws BaseException
       */
      @Transactional(rollbackFor = Exception.class)
-     ResponseVo service(String request) throws BaseException;
+     ResponseVO service(String request) throws BaseException;
 }
