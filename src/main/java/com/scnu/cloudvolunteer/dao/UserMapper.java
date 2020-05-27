@@ -17,6 +17,11 @@ public interface UserMapper {
 
     List<User> selectAll();
 
+    /**
+     * 查询用户数
+      */
+    int selectCount();
+
     int updateByPrimaryKey(User record);
 
     int updateBySelected(User record);

@@ -17,6 +17,16 @@ public interface VolunteerMapper {
 
     List<Volunteer> selectAll();
 
+    /**
+     * 根据归属组织查询志愿者
+      */
+    List<Volunteer> selectByOrganization(Integer organization);
+
+    /**
+     * 查询志愿者人数
+      */
+    int selectCount();
+
     int updateByPrimaryKey(Volunteer record);
 
     int updateBySelected(Volunteer record);

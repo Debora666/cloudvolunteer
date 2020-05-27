@@ -120,6 +120,11 @@
     where openid = #{openid}
   </select>
 
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*)
+    from user
+  </select>
+
   <select id="selectAll" resultMap="BaseResultMap" >
     select <include refid="selectAll"/>
     from user
