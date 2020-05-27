@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scnu.cloudvolunteer.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.scnu.cloudvolunteer.dao.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="selectAll">
+    user_id, openid, `role`, parent_name, `name`, sex, `section`, grade, address, wechat, phone,
+    update_date, create_date
+  </sql>
+  <sql id="base">
+    <if test="openid != null">openid,</if>
+    <if test="role != null">`role`,</if>
+    <if test="parentName != null">parent_name,</if>
+    <if test="name != null">`name`,</if>
+    <if test="sex != null">sex,</if>
+    <if test="section != null">`section`,</if>
+    <if test="grade != null">grade,</if>
+    <if test="address != null">address,</if>
+    <if test="wechat != null">wechat,</if>
+    <if test="phone != null">phone,</if>
+    <if test="updateDate != null">update_date,</if>
+    <if test="createDate != null">create_date,</if>
+  </sql>
+  <sql id="value">
+    <if test="openid != null">#{openid},</if>
+    <if test="role != null">#{role},</if>
+    <if test="parentName != null">#{parentName},</if>
+    <if test="name != null">#{name},</if>
+    <if test="sex != null">#{sex},</if>
+    <if test="section != null">#{section},</if>
+    <if test="grade != null">#{grade},</if>
+    <if test="address != null">#{address},</if>
+    <if test="wechat != null">#{wechat},</if>
+    <if test="phone != null">#{phone},</if>
+    <if test="updateDate != null">#{updateDate},</if>
+    <if test="createDate != null">#{createDate},</if>
+  </sql>
+
+  <sql id="updateSelect">
+    <if test="openid != null">openid = #{openid},</if>
+    <if test="role != null">`role` = #{role},</if>
+    <if test="parentName != null">parent_name = #{parentName},</if>
+    <if test="name != null">`name` = #{name},</if>
+    <if test="sex != null">sex = #{sex},</if>
+    <if test="section != null">`section` = #{section},</if>
+    <if test="grade != null">grade = #{grade},</if>
+    <if test="address != null">address = #{address},</if>
+    <if test="wechat != null">wechat = #{wechat},</if>
+    <if test="phone != null">phone = #{phone},</if>
+    <if test="updateDate != null">update_date = #{updateDate},</if>
+    <if test="createDate != null">create_date = #{createDate},</if>
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.scnu.cloudvolunteer.dao.pojo.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <include refid="base"/>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <include refid="value"/>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.scnu.cloudvolunteer.dao.pojo.User" >
+    update user
+    set openid = #{openid,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER},
+      parent_name = #{parentName,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      `section` = #{section,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.User" >
+    update user
+    <set>
+      <include refid="updateSelect"></include>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="selectAll"/>
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="selectAll"/>
+    from user
+    where openid = #{openid}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="selectAll"/>
+    from user
+  </select>
+</mapper>

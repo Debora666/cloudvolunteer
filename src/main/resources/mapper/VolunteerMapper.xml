@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scnu.cloudvolunteer.dao.VolunteerMapper" >
+  <resultMap id="BaseResultMap" type="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
+    <id column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="workTime" property="worktime" jdbcType="INTEGER" />
+    <result column="organization" property="organization" jdbcType="INTEGER" />
+    <result column="college" property="college" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="stu_no" property="stuNo" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="experience" property="experience" jdbcType="INTEGER" />
+    <result column="service_time" property="serviceTime" jdbcType="INTEGER" />
+    <result column="speciality" property="speciality" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="selectAll">
+    volunteer_id, openid, `status`, `role`,  `name`, sex, total_work_time, organization, college, major, grade,
+    stu_no, subject, `section`, experience, service_time, speciality, wechat, phone, remark, update_date, create_date
+  </sql>
+  <sql id="base">
+    <if test="openid != null">openid,</if>
+    <if test="status != null">`status`,</if>
+    <if test="role != null">`role`,</if>
+    <if test="name != null">`name`,</if>
+    <if test="sex != null">sex,</if>
+    <if test="totalWorkTime != null">total_work_time,</if>
+    <if test="organization != null">organization,</if>
+    <if test="college != null">college,</if>
+    <if test="major != null">major,</if>
+    <if test="grade != null">grade,</if>
+    <if test="stuNo != null">stu_no,</if>
+    <if test="subject != null">subject,</if>
+    <if test="section != null">`section`,</if>
+    <if test="experience != null">experience,</if>
+    <if test="serviceTime != null">service_time,</if>
+    <if test="speciality != null">speciality,</if>
+    <if test="wechat != null">wechat,</if>
+    <if test="phone != null">phone,</if>
+    <if test="remark != null">remark,</if>
+    <if test="updateDate != null">update_date,</if>
+    <if test="createDate != null">create_date,</if>
+  </sql>
+  <sql id="value">
+    <if test="openid != null">#{openid},</if>
+    <if test="status != null">#{status},</if>
+    <if test="role != null">#{role},</if>
+    <if test="name != null">#{name},</if>
+    <if test="sex != null">#{sex},</if>
+    <if test="totalWorkTime != null">#{totalWorkTime},</if>
+    <if test="organization != null">#{organization},</if>
+    <if test="college != null">#{college},</if>
+    <if test="major != null">#{major},</if>
+    <if test="grade != null">#{grade},</if>
+    <if test="stuNo != null">#{stuNo},</if>
+    <if test="subject != null">#{subject},</if>
+    <if test="section != null">#{section},</if>
+    <if test="experience != null">#{experience},</if>
+    <if test="serviceTime != null">#{serviceTime},</if>
+    <if test="speciality != null">#{speciality},</if>
+    <if test="wechat != null">#{wechat},</if>
+    <if test="phone != null">#{phone},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="updateDate != null">#{updateDate},</if>
+    <if test="createDate != null">#{createDate},</if>
+  </sql>
+
+  <sql id="updateSelect">
+    <if test="openid != null">openid = #{openid},</if>
+    <if test="status != null">`status` = #{status},</if>
+    <if test="role != null">`role` = #{role},</if>
+    <if test="name != null">`name` = #{name},</if>
+    <if test="sex != null">sex = #{sex},</if>
+    <if test="totalWorkTime != null">total_work_time = #{totalWorkTime},</if>
+    <if test="organization != null">organization = #{organization},</if>
+    <if test="college != null">college = #{college},</if>
+    <if test="major != null">major = #{major},</if>
+    <if test="grade != null">grade = #{grade},</if>
+    <if test="stuNo != null">stuNo = #{stuNo},</if>
+    <if test="subject != null">subject = #{subject},</if>
+    <if test="section != null">`section` = #{section},</if>
+    <if test="experience != null">experience = #{experience},</if>
+    <if test="serviceTime != null">`service_time` = #{serviceTime},</if>
+    <if test="speciality != null">speciality = #{speciality},</if>
+    <if test="wechat != null">wechat = #{wechat},</if>
+    <if test="phone != null">phone = #{phone},</if>
+    <if test="remark != null">remark = #{remark},</if>
+    <if test="updateDate != null">update_date = #{updateDate},</if>
+    <if test="createDate != null">create_date = #{createDate},</if>
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from volunteer
+    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
+    <selectKey resultType="java.lang.Integer" keyProperty="volunteerId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into volunteer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <include refid="base"/>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <include refid="value"/>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
+    update volunteer
+    set openid = #{openid,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      `role` = #{role,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      workTime = #{worktime,jdbcType=INTEGER},
+      organization = #{organization,jdbcType=INTEGER},
+      college = #{college,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      stu_no = #{stuNo,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      `section` = #{section,jdbcType=INTEGER},
+      experience = #{experience,jdbcType=INTEGER},
+      service_time = #{serviceTime,jdbcType=INTEGER},
+      speciality = #{speciality,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
+    update volunteer
+    <set>
+      <include refid="updateSelect"></include>
+    </set>
+    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="selectAll"/>
+    from volunteer
+    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="selectAll"/>
+    from volunteer
+    where openid = #{openid}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="selectAll"/>
+    from volunteer
+  </select>
+</mapper>

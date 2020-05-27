@@ -1,6 +1,7 @@
 package com.scnu.cloudvolunteer.app;
 
 import com.scnu.cloudvolunteer.base.enums.BaseEnum;
+import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.service.BaseService;
 import com.scnu.cloudvolunteer.base.vo.ResponseVO;
@@ -32,17 +33,14 @@ public class AppController {
         try{
             // 校验svc
             validation(svc);
-            // 获取对应的服务
+            // 根据svc获取对应的服务
             BaseService bean =  (BaseService) SpringUtil.getBean(svc);
             // 处理请求
             responseVo = bean.service(request);
             // 返回响应参数
-            if (StringUtils.isEmpty(responseVo.getCode())){
-                responseVo.setCode(BaseEnum.ok.getCode());
-            }
-            if (StringUtils.isEmpty(responseVo.getMessage())){
-                responseVo.setMessage(BaseEnum.ok.getMessage());
-            }
+            responseVo.setCode(BaseEnum.ok.getCode());
+            responseVo.setMessage(BaseEnum.ok.getMessage());
+            // 序列化成json字符串
             response = JsonUtil.object2Json(responseVo);
         } catch (BaseException e){
             logger.error("请求失败，code[{}], [{}]", e.getCode(), e.getMessage());
@@ -102,10 +100,10 @@ public class AppController {
      */
     private void validation(String svc) throws BaseException{
         if (StringUtils.isEmpty(svc)){
-            throw new BaseException(BaseEnum.SVC_NULL);
+            throw new BaseException(UserEnum.SVC_NULL);
         }
         if (svc.length() != 4){
-            throw new BaseException(BaseEnum.SVC_ERROR);
+            throw new BaseException(UserEnum.SVC_ERROR);
         }
     }
 

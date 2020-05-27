@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("cn.scnu.cloudvolunteer.dao")
+@MapperScan("com.scnu.cloudvolunteer.dao")
 public class CloudvolunteerApplication {
 
     public static void main(String[] args) {
