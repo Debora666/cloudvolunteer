@@ -60,7 +60,7 @@ public class AppController {
     }
 
 //    @PostMapping("/cloudvolunteer/file")
-//    public String file(AutoUploadReqVo request, MultipartFile file, @RequestHeader String svc){
+//    public String file(AutoUploadReqVo request, list<MultipartFile> files, @RequestHeader String svc){
 //        logger.info("接收前端请求, svc:[{}], request:[{}]，fileName:[{}]", svc, request, file.getOriginalFilename());
 //        String response;
 //        ResponseVo responseVo;
@@ -71,7 +71,7 @@ public class AppController {
 //            BaseFileService bean =  (BaseFileService) SpringUtil.getBean(svc);
 //            // 处理请求
 //            String reqVo = JsonUtil.object2Json(request);
-//            responseVo = bean.service(reqVo, file);
+//            responseVo = bean.service(reqVo, files);
 //            // 返回响应参数
 //            responseVo.setCode(BaseEnum.ok.getCode());
 //            responseVo.setMessage(BaseEnum.ok.getMessage());

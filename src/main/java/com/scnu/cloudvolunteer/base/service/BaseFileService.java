@@ -5,6 +5,8 @@ import com.scnu.cloudvolunteer.base.vo.ResponseVO;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @author ：zzheng
  * @date ：2020/05/24 19:22:21
@@ -21,5 +23,5 @@ public interface BaseFileService {
       * @throws BaseException
       */
      @Transactional(rollbackFor = Exception.class)
-     ResponseVO service(String request, MultipartFile file) throws BaseException;
+     ResponseVO service(String request, List<MultipartFile> files) throws BaseException;
 }

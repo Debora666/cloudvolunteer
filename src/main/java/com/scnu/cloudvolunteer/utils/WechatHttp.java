@@ -2,6 +2,7 @@ package com.scnu.cloudvolunteer.utils;
 
 import com.scnu.cloudvolunteer.base.constant.AppConstant;
 import com.scnu.cloudvolunteer.base.constant.UrlConstant;
+import com.scnu.cloudvolunteer.base.enums.ServiceEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.http.BaseHttp;
 import org.slf4j.Logger;
@@ -24,19 +25,27 @@ public class WechatHttp extends BaseHttp {
      * @return
      */
   public static Map code2Session(String code) throws BaseException{
+      String response;
       try {
           Map<String, String> params = new HashMap<>(4);
           params.put("appid", AppConstant.WECHAT_KEY);
           params.put("secret", AppConstant.WECHAT_SECRET);
           params.put("js_code", code);
           params.put("grant_type", "authorization_code");
-          String response = doGet(UrlConstant.CODE2SESSION_URL, params);
-          return JsonUtil.string2Obj(response, HashMap.class);
+          response = doGet(UrlConstant.CODE2SESSION_URL, params);
       }catch (Exception e){
-          // TODO
-          logger.error("");
-          throw new BaseException();
+          logger.error("微信登录失败", e);
+          throw new BaseException(ServiceEnum.WECHAT_LOGIN_ERROR);
       }
+      if (response == null){
+          throw new BaseException(ServiceEnum.WECHAT_LOGIN_ERROR);
+      }
+      Map<String, String> res =  JsonUtil.string2Obj(response, HashMap.class);
+      if (res != null && res.containsKey("errcode") && ("40029".equals(res.get("errcode")) ||
+              40029 == Integer.parseInt(res.get("errcode")))){
+          throw new BaseException(ServiceEnum.WECHAT_LOGIN_ERROR);
+      }
+      return res;
   }
 
     /**
@@ -51,8 +60,9 @@ public class WechatHttp extends BaseHttp {
       params.put("secret", AppConstant.WECHAT_SECRET);
       String response = doGet(UrlConstant.ACCESS_TOKEN_URL, params);
       Map<String, String> map = JsonUtil.string2Obj(response, HashMap.class);
-      if (map == null || map.containsKey("errcode"))
-        throw new BaseException();
+      if (map == null || map.containsKey("errcode")) {
+          logger.warn("获取微信接口调用凭证错误");
+      }
       return map;
   }
 

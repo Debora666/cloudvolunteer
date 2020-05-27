@@ -18,6 +18,11 @@ public class UrlConstant {
      */
     public static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
     /**
+     * 发送订阅消息url
+     * post
+     */
+    public static final String SEND_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=";
+    /**
      * 小程序云开发 数据库插入的url
      * post
      */
