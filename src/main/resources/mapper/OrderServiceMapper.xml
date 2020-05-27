@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scnu.cloudvolunteer.dao.OrderServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.scnu.cloudvolunteer.dao.pojo.OrderService" >
+    <id column="order_service_id" property="orderServiceId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="serviceTime" property="servicetime" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="selectAll">
+    order_service_id, user_id, subject, `section`, service_time, remark, service_status,
+     update_date, create_date
+  </sql>
+  <sql id="base">
+    <if test="userId != null">user_id,</if>
+    <if test="subject != null">subject,</if>
+    <if test="section != null">`section`,</if>
+    <if test="serviceTime != null">service_time,</if>
+    <if test="remark != null">remark,</if>
+    <if test="serviceStatus != null">service_status,</if>
+    <if test="updateDate != null">update_date,</if>
+    <if test="createDate != null">create_date,</if>
+  </sql>
+  <sql id="value">
+    <if test="userId != null">#{userId},</if>
+    <if test="subject != null">#{subject},</if>
+    <if test="section != null">#{section},</if>
+    <if test="serviceTime != null">#{serviceTime},</if>
+    <if test="remark != null">#{remark},</if>
+    <if test="serviceStatus != null">#{serviceStatus},</if>
+    <if test="updateDate != null">#{updateDate},</if>
+    <if test="createDate != null">#{createDate},</if>
+  </sql>
+
+  <sql id="updateSelect">
+    <if test="userId != null">user_id = #{userId},</if>
+    <if test="subject != null">subject = #{subject},</if>
+    <if test="section != null">`section` = #{section},</if>
+    <if test="serviceTime != null">service_time = #{serviceTime},</if>
+    <if test="remark != null">remark = #{remark},</if>
+    <if test="serviceStatus != null">service_status = #{serviceStatus},</if>
+    <if test="updateDate != null">update_date = #{updateDate},</if>
+    <if test="createDate != null">create_date = #{createDate},</if>
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_service
+    where order_service_id = #{orderServiceId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.scnu.cloudvolunteer.dao.pojo.OrderService" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderServiceId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into order_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <include refid="base"/>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <include refid="value"/>
+    </trim>
+  </insert>
+
+  <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.OrderService" >
+    update order_service
+    <set>
+      <include refid="updateSelect"/>
+    </set>
+    where order_service_id = #{orderServiceId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStatusById" parameterType="java.lang.Integer" >
+    update order_service
+    set service_status = #{status}
+    where order_service_id = #{orderServiceId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="selectAll"/>
+    from order_service
+    where order_service_id = #{orderServiceId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="selectAll"/>
+    from order_service
+  </select>
+</mapper>

@@ -13,7 +13,7 @@ public class Admin implements Serializable {
 
     private String password;
 
-    private String organization;
+    private Integer organization;
 
     private Integer role;
 

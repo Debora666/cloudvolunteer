@@ -22,7 +22,5 @@ public interface UserMapper {
       */
     int selectCount();
 
-    int updateByPrimaryKey(User record);
-
     int updateBySelected(User record);
 }

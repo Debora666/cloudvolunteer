@@ -83,27 +83,10 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.scnu.cloudvolunteer.dao.pojo.User" >
-    update user
-    set openid = #{openid,jdbcType=VARCHAR},
-      `role` = #{role,jdbcType=INTEGER},
-      parent_name = #{parentName,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      `section` = #{section,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=INTEGER},
-      address = #{address,jdbcType=VARCHAR},
-      wechat = #{wechat,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
-    where user_id = #{userId,jdbcType=INTEGER}
-  </update>
-
   <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.User" >
     update user
     <set>
-      <include refid="updateSelect"></include>
+      <include refid="updateSelect"/>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scnu.cloudvolunteer.dao.ServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.scnu.cloudvolunteer.dao.pojo.Service" >
+    <id column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <result column="order_service_id" property="orderServiceId" jdbcType="INTEGER" />
+    <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="work_time" property="workTime" jdbcType="INTEGER" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="selectAll">
+    service_id, order_service_id, volunteer_id, user_id, work_time, update_date, create_date
+  </sql>
+  <sql id="base">
+    <if test="orderServiceId != null">order_service_id,</if>
+    <if test="volunteerId != null">volunteer_id,</if>
+    <if test="userId != null">user_id,</if>
+    <if test="workTime != null">work_time,</if>
+    <if test="updateDate != null">update_date,</if>
+    <if test="createDate != null">create_date,</if>
+  </sql>
+  <sql id="value">
+    <if test="orderServiceId != null">#{orderServiceId},</if>
+    <if test="volunteerId != null">#{volunteerId},</if>
+    <if test="userId != null">#{userId},</if>
+    <if test="workTime != null">#{workTime},</if>
+    <if test="updateDate != null">#{updateDate},</if>
+    <if test="createDate != null">#{createDate},</if>
+  </sql>
+
+  <sql id="updateSelect">
+    <if test="orderServiceId != null">order_service_id = #{orderServiceId},</if>
+    <if test="volunteerId != null">volunteer_id = #{volunteerId},</if>
+    <if test="userId != null">user_id = #{userId},</if>
+    <if test="workTime != null">work_time = #{workTime},</if>
+    <if test="updateDate != null">update_date = #{updateDate},</if>
+    <if test="createDate != null">create_date = #{createDate},</if>
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.scnu.cloudvolunteer.dao.pojo.Service" >
+    <selectKey resultType="java.lang.Integer" keyProperty="serviceId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <include refid="base"/>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <include refid="value"/>
+    </trim>
+  </insert>
+
+  <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.Service" >
+    update service
+    <set>
+      <include refid="updateSelect"/>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+
+  <update id="addWorkTimeByServiceId" parameterType="java.lang.Integer" >
+    update service
+    set work_time = work_time + #{addWorkTime}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="selectAll"/>
+    from service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="selectAll"/>
+    from service
+  </select>
+</mapper>

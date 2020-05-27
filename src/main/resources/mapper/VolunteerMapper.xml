@@ -119,37 +119,23 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKey" parameterType="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
-    update volunteer
-    set openid = #{openid,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=INTEGER},
-      `role` = #{role,jdbcType=INTEGER},
-      `name` = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      workTime = #{worktime,jdbcType=INTEGER},
-      organization = #{organization,jdbcType=INTEGER},
-      college = #{college,jdbcType=VARCHAR},
-      major = #{major,jdbcType=VARCHAR},
-      grade = #{grade,jdbcType=INTEGER},
-      stu_no = #{stuNo,jdbcType=VARCHAR},
-      subject = #{subject,jdbcType=VARCHAR},
-      `section` = #{section,jdbcType=INTEGER},
-      experience = #{experience,jdbcType=INTEGER},
-      service_time = #{serviceTime,jdbcType=INTEGER},
-      speciality = #{speciality,jdbcType=VARCHAR},
-      wechat = #{wechat,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
-    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
-  </update>
-
   <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
     update volunteer
     <set>
-      <include refid="updateSelect"></include>
+      <include refid="updateSelect"/>
     </set>
+    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+  </update>
+
+  <update id="addWorkTimeByVolunteerId" parameterType="java.lang.Integer" >
+    update volunteer
+    set total_work_time = total_work_time + #{addWorkTime}
+    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStatusById" parameterType="java.lang.Integer" >
+    update volunteer
+    set status = #{checkStatus}
     where volunteer_id = #{volunteerId,jdbcType=INTEGER}
   </update>
 
@@ -175,6 +161,7 @@
     select count(*)
     from volunteer
   </select>
+
 
   <select id="selectAll" resultMap="BaseResultMap" >
     select <include refid="selectAll"/>
