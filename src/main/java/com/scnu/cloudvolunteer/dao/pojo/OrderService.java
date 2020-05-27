@@ -19,7 +19,7 @@ public class OrderService implements Serializable {
 
     private String remark;
 
-    private Integer matchStatus;
+    private Integer serviceStatus;
 
     private Date updateDate;
 

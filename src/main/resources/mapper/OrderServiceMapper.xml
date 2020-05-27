@@ -8,13 +8,13 @@
     <result column="section" property="section" jdbcType="INTEGER" />
     <result column="service_time" property="serviceTime" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="match_status" property="matchStatus" jdbcType="INTEGER" />
+    <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="selectAll">
-    order_service_id, user_id, subject, `section`, service_time, remark, match_status,
+    order_service_id, user_id, subject, `section`, service_time, remark, service_status,
      update_date, create_date
   </sql>
   <sql id="base">
@@ -23,7 +23,7 @@
     <if test="section != null">`section`,</if>
     <if test="serviceTime != null">service_time,</if>
     <if test="remark != null">remark,</if>
-    <if test="matchStatus != null">match_status,</if>
+    <if test="serviceStatus != null">service_status,</if>
     <if test="updateDate != null">update_date,</if>
     <if test="createDate != null">create_date,</if>
   </sql>
@@ -33,7 +33,7 @@
     <if test="section != null">#{section},</if>
     <if test="serviceTime != null">#{serviceTime},</if>
     <if test="remark != null">#{remark},</if>
-    <if test="matchStatus != null">#{matchStatus},</if>
+    <if test="serviceStatus != null">#{serviceStatus},</if>
     <if test="updateDate != null">#{updateDate},</if>
     <if test="createDate != null">#{createDate},</if>
   </sql>
@@ -44,7 +44,7 @@
     <if test="section != null">`section` = #{section},</if>
     <if test="serviceTime != null">service_time = #{serviceTime},</if>
     <if test="remark != null">remark = #{remark},</if>
-    <if test="matchStatus != null">match_status = #{matchStatus},</if>
+    <if test="serviceStatus != null">service_status = #{serviceStatus},</if>
     <if test="updateDate != null">update_date = #{updateDate},</if>
     <if test="createDate != null">create_date = #{createDate},</if>
   </sql>
@@ -77,7 +77,7 @@
 
   <update id="updateStatusById" parameterType="java.lang.Integer" >
     update order_service
-    set match_status = #{status}
+    set service_status = #{status}
     where order_service_id = #{orderServiceId,jdbcType=INTEGER}
   </update>
 

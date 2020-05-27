@@ -20,7 +20,6 @@ public interface ServiceMapper {
 
     /**
      * 更新服务状态
-     * 0 - 已中止， 1- 服务中
      * @param status
      * @return
      */
