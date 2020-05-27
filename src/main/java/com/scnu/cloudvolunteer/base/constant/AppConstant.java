@@ -11,7 +11,7 @@ public class AppConstant {
     /**
      * 微信小程序AppID
      */
-    public static final String WECHAT_KEY = "";
+    public static final String WECHAT_KEY = "wx21c5837a7a874d3a";
     /**
      * 微信小程序AppSecret
      */

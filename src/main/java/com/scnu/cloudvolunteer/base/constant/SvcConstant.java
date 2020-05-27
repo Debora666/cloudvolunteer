@@ -7,63 +7,70 @@ package com.scnu.cloudvolunteer.base.constant;
  *  服务码常量
  */
 public class SvcConstant {
-    private static final String USER_MODEL = "10";
-    private static final String COURSE_MODEL = "20";
-    private static final String PAPER_MODEL = "30";
-    private static final String ANSWER_MODEL = "40";
-    private static final String QUESTION_MODEL = "50";
+    private static final String REGISTER = "01";
+    private static final String LOGIN = "02";
+    private static final String VOLUNTEER_MANAGER = "03";
+    private static final String ADMIN2_MANAGER = "04";
+    private static final String SERVICE_MATCH = "05";
+    private static final String STATISTICS = "06";
+    private static final String INFORMATION_MANAGER = "07";
+    private static final String SERVICE_RECORD = "08";
 
-    /*----------------------------用户模块-----------------------------------*/
+    /*----------------------------注册-----------------------------------*/
+    // 普通用户注册
+    public static final String USER_REGISTER = REGISTER + "01";
+    // 志愿者注册
+    public static final String VOLUNTEER_REGISTER = REGISTER + "02";
+    // 查看志愿者注册
+    public static final String GET_VOLUNTEER_REGISTER = REGISTER + "03";
+    // 审核志愿者注册
+    public static final String CHECK_VOLUNTEER_REGISTER = REGISTER + "04";
 
-    public static final String USER_LOGIN = USER_MODEL + "10";
-    public static final String USER_SETTING = USER_MODEL + "20";
-    public static final String STUDENT_QUERY = USER_MODEL + "30";
-    public static final String TEACHER_QUERY = USER_MODEL + "40";
+    /*----------------------------登录-----------------------------------*/
+    // 微信登录
+    public static final String WECHAT_LOGIN = LOGIN + "01";
+    // 管理员登录
+    public static final String ADMIN_LOGIN = LOGIN + "02";
 
-    /*----------------------------课程模块-----------------------------------*/
+    /*----------------------------志愿者管理-----------------------------------*/
+    // 查看志愿者
+    public static final String GET_VOLUNTEERS = VOLUNTEER_MANAGER + "01";
+    // 删除志愿者
+    public static final String DELETE_VOLUNTEER = VOLUNTEER_MANAGER + "02";
 
-    public static final String OPEN_COURSE = COURSE_MODEL + "10";
-    public static final String JOIN_COURSE = COURSE_MODEL + "20";
-    public static final String QUIT_COURSE = COURSE_MODEL + "30";
-    public static final String SETTING_COURSE = COURSE_MODEL + "40";
-    public static final String STUDENT_STATISTIC_COURSE = COURSE_MODEL + "50";
-    public static final String TEACHER_STATISTIC_COURSE = COURSE_MODEL + "60";
-    public static final String OPEN_QUERY_COURSE = COURSE_MODEL + "15";
-    public static final String SELECT_QUERY_COURSE = COURSE_MODEL + "25";
+    /*----------------------------二级管理员管理-----------------------------------*/
+    // 创建二级管理员账号
+    public static final String CREATE_ADMIN2 = ADMIN2_MANAGER + "01";
+    // 查看所有二级管理员
+    public static final String GET_ALL_ADMIN2 = ADMIN2_MANAGER + "02";
+    // 删除二级管理员账号
+    public static final String DELETE_ADMIN2 = ADMIN2_MANAGER + "03";
 
-    /*----------------------------试卷模块-----------------------------------*/
+    /*----------------------------服务匹配-----------------------------------*/
+    // 用户下单系统匹配
+    public static final String ORDER_SERVICE_AND_MATCH = SERVICE_MATCH + "01";
+    // 查看所有未匹配服务订单
+    public static final String GET_NO_MATCH_SERVICE = SERVICE_MATCH + "02";
+    // 人工匹配
+    public static final String HAND_MATCH = SERVICE_MATCH + "03";
 
-    public static final String NEW_PAPER = PAPER_MODEL + "10";
-    public static final String SETTING_PAPER = PAPER_MODEL + "20";
-    public static final String PUBLISH_PAPER = PAPER_MODEL + "30";
-    public static final String GET_PAPER = PAPER_MODEL + "40";
+    /*----------------------------统计-----------------------------------*/
+    // 查看平台所有用户统计数
+    public static final String GET_USER_STATISTICS = STATISTICS + "01";
 
-    public static final String PAPERS_QUERY = PAPER_MODEL + "15";
-    public static final String PAPER_QUERY = PAPER_MODEL + "16";
-    public static final String PUBLISH_QUERY = PAPER_MODEL + "35";
+    /*----------------------------个人信息管理-----------------------------------*/
+    // 查看个人信息
+    public static final String GET_USER_INFORMATION = INFORMATION_MANAGER + "01";
+    // 修改个人信息
+    public static final String UPDATE_USER_INFORMATION = INFORMATION_MANAGER + "02";
 
-    /*----------------------------答卷模块-----------------------------------*/
-
-    public static final String ANSWER = ANSWER_MODEL + "10";
-    public static final String ANSWER_STATISTIC = ANSWER_MODEL + "20";
-    public static final String TEXT_ANSWER = ANSWER_MODEL + "30";
-
-    public static final String ANSWERS_QUERY = ANSWER_MODEL + "15";
-    public static final String ANSWER_QUERY = ANSWER_MODEL + "16";
-    public static final String TEXT_QUERY = ANSWER_MODEL + "35";
-
-    /*----------------------------试题模块-----------------------------------*/
-
-    public static final String HAND_UPLOAD = QUESTION_MODEL + "10";
-    public static final String WORD_UPLOAD = QUESTION_MODEL + "20";
-    public static final String EXCEL_UPLOAD = QUESTION_MODEL + "30";
-    public static final String QUESTION_QUERY = QUESTION_MODEL + "40";
-    public static final String EDIT_QUESTION = QUESTION_MODEL + "50";
-    public static final String DELETE_QUESTION = QUESTION_MODEL + "60";
-
-
-    /**
-     * QueryService用户所有信息查询服务，如试卷，个人信息
-     */
-    public static final String QUERY = "0000";
+    /*----------------------------服务记录-----------------------------------*/
+    // 查看所有服务记录
+    public static final String GET_SERVICE_RECORD = SERVICE_RECORD + "01";
+    // 上传服务信息
+    public static final String UPLOAD_SERVICE_RECORD = SERVICE_RECORD + "02";
+    // 查看所有待审核的服务信息
+    public static final String GET_NO_CHECK_SERVICE_RECORD = SERVICE_RECORD + "03";
+    // 审核服务信息
+    public static final String CHECK_SERVICE_RECORD = SERVICE_RECORD + "04";
 }

@@ -1,6 +1,9 @@
 package com.scnu.cloudvolunteer.base.exception;
 
+import com.scnu.cloudvolunteer.base.enums.AppEnum;
 import com.scnu.cloudvolunteer.base.enums.BaseEnum;
+import com.scnu.cloudvolunteer.base.enums.ServiceEnum;
+import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,6 +34,24 @@ public class BaseException extends RuntimeException {
         super(baseEnum.getMessage());
         this.code = baseEnum.getCode();
         this.message = baseEnum.getMessage();
+    }
+
+    public BaseException(UserEnum userEnum){
+        super(userEnum.getMessage());
+        this.code = userEnum.getCode();
+        this.message = userEnum.getMessage();
+    }
+
+    public BaseException(AppEnum appEnum){
+        super(appEnum.getMessage());
+        this.code = appEnum.getCode();
+        this.message = appEnum.getMessage();
+    }
+
+    public BaseException(ServiceEnum serviceEnum){
+        super(serviceEnum.getMessage());
+        this.code = serviceEnum.getCode();
+        this.message = serviceEnum.getMessage();
     }
 
 }
