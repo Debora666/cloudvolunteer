@@ -34,7 +34,7 @@ public class InitAppConfig implements CommandLineRunner, EnvironmentAware, Dispo
 
     @Override
     public void run(String... args) {
-        freshAccessToken();
+//        freshAccessToken();
     }
 
     /**

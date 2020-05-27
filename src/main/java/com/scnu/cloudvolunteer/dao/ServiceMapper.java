@@ -2,9 +2,11 @@ package com.scnu.cloudvolunteer.dao;
 
 import com.scnu.cloudvolunteer.dao.pojo.Service;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ServiceMapper {
     int deleteByPrimaryKey(Integer serviceId);
 
@@ -15,6 +17,14 @@ public interface ServiceMapper {
     List<Service> selectAll();
 
     int updateBySelected(Service record);
+
+    /**
+     * 更新服务状态
+     * 0 - 已中止， 1- 服务中
+     * @param status
+     * @return
+     */
+    int updateStatusById(Integer status);
 
     /**
      * 增加服务时间
