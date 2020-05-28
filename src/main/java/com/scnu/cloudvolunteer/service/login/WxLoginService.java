@@ -68,7 +68,7 @@ public class WxLoginService implements BaseService {
      */
     private void validation(WxLoginReqVO reqVo)throws BaseException{
         if (reqVo == null){
-            throw new BaseException();
+            throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
         if (!StringUtils.hasText(reqVo.getCode()) || reqVo.getRole() == null){
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);

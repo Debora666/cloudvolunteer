@@ -6,7 +6,7 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="subject" property="subject" jdbcType="VARCHAR" />
     <result column="section" property="section" jdbcType="INTEGER" />
-    <result column="serviceTime" property="servicetime" jdbcType="INTEGER" />
+    <result column="service_time" property="serviceTime" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />

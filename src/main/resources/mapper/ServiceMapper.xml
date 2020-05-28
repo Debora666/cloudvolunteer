@@ -6,18 +6,20 @@
     <result column="order_service_id" property="orderServiceId" jdbcType="INTEGER" />
     <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="serviceStatus" property="service_status" jdbcType="INTEGER" />
     <result column="work_time" property="workTime" jdbcType="INTEGER" />
     <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
   </resultMap>
 
   <sql id="selectAll">
-    service_id, order_service_id, volunteer_id, user_id, work_time, update_date, create_date
+    service_id, order_service_id, volunteer_id, user_id, service_status, work_time, update_date, create_date
   </sql>
   <sql id="base">
     <if test="orderServiceId != null">order_service_id,</if>
     <if test="volunteerId != null">volunteer_id,</if>
     <if test="userId != null">user_id,</if>
+    <if test="serviceStatus != null">service_status,</if>
     <if test="workTime != null">work_time,</if>
     <if test="updateDate != null">update_date,</if>
     <if test="createDate != null">create_date,</if>
@@ -35,6 +37,7 @@
     <if test="orderServiceId != null">order_service_id = #{orderServiceId},</if>
     <if test="volunteerId != null">volunteer_id = #{volunteerId},</if>
     <if test="userId != null">user_id = #{userId},</if>
+    <if test="serviceStatus != null">service_status = #{serviceStatus},</if>
     <if test="workTime != null">work_time = #{workTime},</if>
     <if test="updateDate != null">update_date = #{updateDate},</if>
     <if test="createDate != null">create_date = #{createDate},</if>
@@ -63,6 +66,12 @@
     <set>
       <include refid="updateSelect"/>
     </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStatusById" parameterType="java.lang.Integer" >
+    update ervice
+    set service_status = #{status}
     where service_id = #{serviceId,jdbcType=INTEGER}
   </update>
 
