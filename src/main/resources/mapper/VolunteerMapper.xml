@@ -157,13 +157,6 @@
     where organization = #{organization}
   </select>
 
-  <select id="selectMatchVolunteer" resultMap="BaseResultMap" parameterType="com.scnu.cloudvolunteer.dao.pojo.Volunteer" >
-    select <include refid="selectAll"/>
-    from volunteer
-    where `section` = #{section} and subject = #{subject}
-            and service_time = #{serviceTime}
-  </select>
-
   <select id="selectCount" resultType="java.lang.Integer">
     select count(*)
     from volunteer

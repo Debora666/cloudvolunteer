@@ -59,7 +59,7 @@ public class InitAppConfig implements CommandLineRunner, EnvironmentAware, Dispo
                     }
                 }
                 String accessToken = tokenMap.get("access_token").toString();
-                logger.info("获取accessToken成功  [{}]", accessToken);
+                logger.info("获取微信接口调用凭证accessToken成功");
                 redisUtil.setValue("accessToken", accessToken);
                 try {
                     Integer s = (Integer) tokenMap.get("expires_in");

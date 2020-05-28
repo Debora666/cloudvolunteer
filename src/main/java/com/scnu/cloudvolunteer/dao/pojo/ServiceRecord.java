@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Service implements Serializable {
+public class ServiceRecord implements Serializable {
     private Integer serviceId;
 
     private Integer orderServiceId;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.scnu.cloudvolunteer.dao.ServiceMapper" >
-  <resultMap id="BaseResultMap" type="com.scnu.cloudvolunteer.dao.pojo.Service" >
-    <id column="service_id" property="serviceId" jdbcType="INTEGER" />
+<mapper namespace="com.scnu.cloudvolunteer.dao.ServiceRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.scnu.cloudvolunteer.dao.pojo.ServiceRecord" >
+    <id column="service_record_id" property="serviceRecordId" jdbcType="INTEGER" />
     <result column="order_service_id" property="orderServiceId" jdbcType="INTEGER" />
     <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
@@ -12,8 +12,13 @@
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
   </resultMap>
 
+  <resultMap id="MatchResultMap" type="com.scnu.cloudvolunteer.dto.MatchResultDTO">
+    <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+  </resultMap>
+
   <sql id="selectAll">
-    service_id, order_service_id, volunteer_id, user_id, service_status, work_time, update_date, create_date
+    service_record_id, order_service_id, volunteer_id, user_id, service_status, work_time, update_date, create_date
   </sql>
   <sql id="base">
     <if test="orderServiceId != null">order_service_id,</if>
@@ -44,15 +49,15 @@
   </sql>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from service
-    where service_id = #{serviceId,jdbcType=INTEGER}
+    delete from service_record
+    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.scnu.cloudvolunteer.dao.pojo.Service" >
-    <selectKey resultType="java.lang.Integer" keyProperty="serviceId" order="AFTER" >
+  <insert id="insert" parameterType="com.scnu.cloudvolunteer.dao.pojo.ServiceRecord" >
+    <selectKey resultType="java.lang.Integer" keyProperty="serviceRecordId" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into service
+    insert into service_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <include refid="base"/>
     </trim>
@@ -61,34 +66,44 @@
     </trim>
   </insert>
 
-  <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.Service" >
-    update service
+  <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.ServiceRecord" >
+    update service_record
     <set>
       <include refid="updateSelect"/>
     </set>
-    where service_id = #{serviceId,jdbcType=INTEGER}
+    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
   </update>
 
   <update id="updateStatusById" parameterType="java.lang.Integer" >
-    update ervice
+    update service_record
     set service_status = #{status}
-    where service_id = #{serviceId,jdbcType=INTEGER}
+    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
   </update>
 
   <update id="addWorkTimeByServiceId" parameterType="java.lang.Integer" >
-    update service
+    update service_record
     set work_time = work_time + #{addWorkTime}
-    where service_id = #{serviceId,jdbcType=INTEGER}
+    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select <include refid="selectAll"/>
-    from service
-    where service_id = #{serviceId,jdbcType=INTEGER}
+    from service_record
+    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectMatchVolunteer" resultMap="MatchResultMap" parameterType="com.scnu.cloudvolunteer.dto.ServiceMatchDTO" >
+    select v.volunteer_id, v.organization, COUNT(*) num from service_record s right join
+        (select volunteer_id, organization from volunteer where subject = #{subject} and
+            `section` = #{section} and service_time = #{serviceTime}) v
+        on s.volunteer_id = v.volunteer_id
+        where s.service_status = 1
+        GROUP BY s.volunteer_id HAVING COUNT(*) &lt; #{maxServiceNum}
+        ORDER BY num, s.volunteer_id asc LIMIT #{limitNum}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap" >
     select <include refid="selectAll"/>
-    from service
+    from service_record
   </select>
 </mapper>

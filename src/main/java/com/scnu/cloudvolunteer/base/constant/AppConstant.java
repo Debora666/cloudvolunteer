@@ -15,5 +15,5 @@ public class AppConstant {
     /**
      * 微信小程序AppSecret
      */
-    public static final String WECHAT_SECRET = "";
+    public static final String WECHAT_SECRET = "d98e756ed054bf82ef8a315b69df3245";
 }
