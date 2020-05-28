@@ -58,7 +58,7 @@ public class DeleteVolunteer implements BaseService {
         if (delcount != 1) {
             throw new BaseException(AppEnum.APP_ERROR);
         }
-        logger.warn("Admin("+reqVO.getAdminId()+") 删除了一名志愿者:"+volunteer.toString());
+        logger.warn("管理员["+reqVO.getAdminId()+"] 删除了一名志愿者:"+volunteer.toString());
         return responseVO;
     }
 
