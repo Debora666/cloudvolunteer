@@ -3,6 +3,7 @@ package com.scnu.cloudvolunteer.service.volunteerManager;
 import com.scnu.cloudvolunteer.base.constant.RoleConstant;
 import com.scnu.cloudvolunteer.base.constant.SvcConstant;
 import com.scnu.cloudvolunteer.base.enums.AppEnum;
+import com.scnu.cloudvolunteer.base.enums.ServiceEnum;
 import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.service.BaseService;
@@ -13,8 +14,11 @@ import com.scnu.cloudvolunteer.dao.pojo.Admin;
 import com.scnu.cloudvolunteer.dao.pojo.Volunteer;
 import com.scnu.cloudvolunteer.utils.JsonUtil;
 import com.scnu.cloudvolunteer.vo.volunteerManager.DeleteVolunteerReqVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -32,7 +36,9 @@ public class DeleteVolunteer implements BaseService {
     @Autowired
     private AdminMapper adminMapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(DeleteVolunteer.class);
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public ResponseVO service(String request) throws BaseException {
 
@@ -41,12 +47,18 @@ public class DeleteVolunteer implements BaseService {
         validation(reqVO);
 
         ResponseVO<Integer> responseVO = new ResponseVO<>();
+        Volunteer volunteer = volunteerMapper.selectByPrimaryKey(reqVO.getVolunteerId());
+        int delcount = 0;
+        try {
+            delcount = volunteerMapper.deleteByPrimaryKey(reqVO.getVolunteerId());
 
-        int delcount = volunteerMapper.deleteByPrimaryKey(reqVO.getVolunteerId());
-
+        }catch (Exception e){
+            throw new BaseException(ServiceEnum.DATABASE_ERROR);
+        }
         if (delcount != 1) {
             throw new BaseException(AppEnum.APP_ERROR);
         }
+        logger.warn("Admin("+reqVO.getAdminId()+") 删除了一名志愿者:"+volunteer.toString());
         return responseVO;
     }
 

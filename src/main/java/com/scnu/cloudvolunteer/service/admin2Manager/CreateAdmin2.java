@@ -58,7 +58,7 @@ public class CreateAdmin2 implements BaseService {
      * @param reqVO
      * @throws BaseException
      */
-    public void validation(CreateAdmin2ReqVO reqVO) throws BaseException{
+    private void validation(CreateAdmin2ReqVO reqVO) throws BaseException{
         if(reqVO == null){
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
@@ -81,7 +81,7 @@ public class CreateAdmin2 implements BaseService {
      * @param admin
      * @throws BaseException
      */
-    public void privilegeValidation(Admin admin) throws BaseException{
+    private void privilegeValidation(Admin admin) throws BaseException{
         if (admin.getRole() != RoleConstant.ADMIN){
             throw new BaseException(UserEnum.REQUEST_PARAM_RANGE_ERROE);
         }
