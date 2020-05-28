@@ -66,6 +66,24 @@
     </trim>
   </insert>
 
+  <insert id="insertBatch" parameterType="java.util.List" >
+    <selectKey resultType="java.lang.Integer" keyProperty="serviceRecordId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into service_record
+    (
+        order_service_id, volunteer_id, user_id,
+        service_status, work_time, update_date, create_date
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        #{item.orderServiceId},#{item.volunteerId},#{item.userId},
+        #{item.serviceStatus},#{item.workTime},#{item.updateDate},#{item.createDate}
+      </trim>
+    </foreach>
+  </insert>
+
   <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.ServiceRecord" >
     update service_record
     <set>
@@ -74,16 +92,10 @@
     where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
   </update>
 
-  <update id="updateStatusById" parameterType="java.lang.Integer" >
+  <update id="addWorkTimeByServiceId">
     update service_record
-    set service_status = #{status}
-    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
-  </update>
-
-  <update id="addWorkTimeByServiceId" parameterType="java.lang.Integer" >
-    update service_record
-    set work_time = work_time + #{addWorkTime}
-    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
+    set work_time = work_time + #{1}
+    where service_record_id = #{0}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

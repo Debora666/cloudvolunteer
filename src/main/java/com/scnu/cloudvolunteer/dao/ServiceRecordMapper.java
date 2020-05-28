@@ -3,8 +3,8 @@ package com.scnu.cloudvolunteer.dao;
 import com.scnu.cloudvolunteer.dao.pojo.ServiceRecord;
 import com.scnu.cloudvolunteer.dto.MatchResultDTO;
 import com.scnu.cloudvolunteer.dto.ServiceMatchDTO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
@@ -12,6 +12,13 @@ public interface ServiceRecordMapper {
     int deleteByPrimaryKey(Integer serviceId);
 
     int insert(ServiceRecord record);
+
+    /**
+     * 批量插入
+     * @param records
+     * @return
+     */
+    int insertBatch(List<ServiceRecord> records);
 
     ServiceRecord selectByPrimaryKey(Integer serviceId);
 
@@ -27,16 +34,9 @@ public interface ServiceRecordMapper {
     int updateBySelected(ServiceRecord record);
 
     /**
-     * 更新服务状态
-     * @param status
-     * @return
-     */
-    int updateStatusById(Integer status);
-
-    /**
      * 增加服务时间
      * @param addWorkTime
      * @return
      */
-    int addWorkTimeByServiceId(@Param("addWorkTime") Integer addWorkTime);
+    int addWorkTimeByServiceId(Integer serviceRecordId, Integer addWorkTime);
 }
