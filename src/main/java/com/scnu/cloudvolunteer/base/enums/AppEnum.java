@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public enum AppEnum {
     APP_ERROR("B0001", "系统执行出错"),
-    APP_TIME_OUT("B0002", "系统执行超时"),
+    APP_TIME_OUT("B0100", "系统执行超时"),
     ;
 
     private final String code;
