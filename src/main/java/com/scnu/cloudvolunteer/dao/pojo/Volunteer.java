@@ -31,7 +31,7 @@ public class Volunteer implements Serializable {
 
     private String stuNo;
 
-    private String subject;
+    private Integer subject;
 
     private Integer section;
 

@@ -16,6 +16,13 @@ public interface VolunteerMapper {
 
     Volunteer selectByOpenid(String openId);
 
+    /**
+     * 根据时间段，科目，学段 查询志愿者
+     * @param volunteer
+     * @return
+     */
+    List<Volunteer> selectMatchVolunteer(Volunteer volunteer);
+
     List<Volunteer> selectAll();
 
     /**

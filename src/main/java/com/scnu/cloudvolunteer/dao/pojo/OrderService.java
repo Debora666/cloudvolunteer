@@ -11,7 +11,7 @@ public class OrderService implements Serializable {
 
     private Integer userId;
 
-    private String subject;
+    private Integer subject;
 
     private Integer section;
 
