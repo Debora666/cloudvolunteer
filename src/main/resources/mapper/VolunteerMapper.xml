@@ -14,7 +14,7 @@
     <result column="major" property="major" jdbcType="VARCHAR" />
     <result column="grade" property="grade" jdbcType="INTEGER" />
     <result column="stu_no" property="stuNo" jdbcType="VARCHAR" />
-    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="INTEGER" />
     <result column="section" property="section" jdbcType="INTEGER" />
     <result column="experience" property="experience" jdbcType="INTEGER" />
     <result column="service_time" property="serviceTime" jdbcType="INTEGER" />
