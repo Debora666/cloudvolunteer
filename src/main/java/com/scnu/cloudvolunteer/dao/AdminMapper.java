@@ -1,6 +1,7 @@
 package com.scnu.cloudvolunteer.dao;
 
 import com.scnu.cloudvolunteer.dao.pojo.Admin;
+import com.scnu.cloudvolunteer.dao.pojo.Admin2Count;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface AdminMapper {
     List<Admin> selectAllAdmin2();
 
     int updateBySelected(Admin record);
+
+    List<Admin2Count> selectAllAdmin2Count();
 }
