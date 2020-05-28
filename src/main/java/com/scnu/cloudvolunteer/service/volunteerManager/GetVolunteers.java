@@ -41,7 +41,7 @@ public class GetVolunteers implements BaseService {
         ArrayList<Volunteer> volunteers = new ArrayList<>();
         switch(reqVO.getRole()){
             case RoleConstant.ADMIN:
-                volunteers = (ArrayList<Volunteer>)getAllVolunteers(reqVO);
+                volunteers = (ArrayList<Volunteer>)getAllVolunteers();
             case RoleConstant.ADMIN2:
                 volunteers = (ArrayList<Volunteer>)getVolunteersByOrganization(reqVO);
         }
@@ -52,7 +52,7 @@ public class GetVolunteers implements BaseService {
         resVOResponseVO.setData(resVO);
 
 
-        return null;
+        return resVOResponseVO;
     }
 
     /**
@@ -62,7 +62,7 @@ public class GetVolunteers implements BaseService {
      */
     private void validation(GetVolunteersReqVO reqVO)throws  BaseException{
         if(reqVO == null){
-            throw new BaseException();
+            throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
         if(reqVO.getAdminId() == null || reqVO.getRole() == null){
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
@@ -76,7 +76,7 @@ public class GetVolunteers implements BaseService {
         }
     }
 
-    private ArrayList<Volunteer> getAllVolunteers(GetVolunteersReqVO reqVO){
+    private ArrayList<Volunteer> getAllVolunteers(){
         return (ArrayList<Volunteer>)volunteerMapper.selectAll();
     }
 
