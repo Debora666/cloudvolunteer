@@ -57,7 +57,7 @@ public class DeleteVolunteer implements BaseService {
      */
     private void validation(DeleteVolunteerReqVO reqVO)throws  BaseException {
         if (reqVO == null) {
-            throw new BaseException();
+            throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
         if (reqVO.getAdminId() == null || reqVO.getVolunteerId() == null) {
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);

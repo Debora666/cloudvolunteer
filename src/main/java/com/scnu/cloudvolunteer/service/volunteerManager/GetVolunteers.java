@@ -62,7 +62,7 @@ public class GetVolunteers implements BaseService {
      */
     private void validation(GetVolunteersReqVO reqVO)throws  BaseException{
         if(reqVO == null){
-            throw new BaseException();
+            throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
         if(reqVO.getAdminId() == null || reqVO.getRole() == null){
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
