@@ -10,6 +10,8 @@ public class VolunteerStatusConstant {
     public static final int NO_PASS = -1;
     // 待审核
     public static final int CHECKING = 0;
+    // 更改组织审核中
+    public static final int CHANGE_ORGANIZATION_CHECKING = 1;
     // 通过
-    public static final int PASS = 1;
+    public static final int PASS = 2;
 }

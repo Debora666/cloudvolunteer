@@ -63,6 +63,8 @@ public class SvcConstant {
     public static final String GET_USER_INFORMATION = INFORMATION_MANAGER + "01";
     // 修改个人信息
     public static final String UPDATE_USER_INFORMATION = INFORMATION_MANAGER + "02";
+    // 查看志愿者更改组织审核结果
+    public static final String GET_CHANGE_ORGANIZATION_RESULT = INFORMATION_MANAGER + "03";
 
     /*----------------------------服务记录-----------------------------------*/
     // 查看所有服务记录
