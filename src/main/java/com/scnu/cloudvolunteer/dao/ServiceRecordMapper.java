@@ -1,6 +1,8 @@
 package com.scnu.cloudvolunteer.dao;
 
 import com.scnu.cloudvolunteer.dao.pojo.ServiceRecord;
+import com.scnu.cloudvolunteer.dao.pojo.UserServiceRecord;
+import com.scnu.cloudvolunteer.dao.pojo.VolunteerServiceRecord;
 import com.scnu.cloudvolunteer.dto.MatchResultDTO;
 import com.scnu.cloudvolunteer.dto.ServiceMatchDTO;
 import org.apache.ibatis.annotations.Param;
@@ -39,4 +41,8 @@ public interface ServiceRecordMapper {
      * @return
      */
     int addWorkTimeByServiceId(@Param("addWorkTime") Integer addWorkTime);
+
+    List<UserServiceRecord> selectByUserId(Integer userId);
+
+    List<VolunteerServiceRecord> selectByVolunteerId(Integer volunteerId);
 }
