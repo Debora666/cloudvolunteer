@@ -1,7 +1,7 @@
 package com.scnu.cloudvolunteer.vo.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +11,7 @@ import java.util.List;
  * 人工匹配请求vo
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HandMatchReqVO implements Serializable {
     private Integer adminId;
     private Integer userId;

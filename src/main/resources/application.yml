@@ -44,6 +44,9 @@ spring:
   mvc:
     static-path-pattern: /**
 
+  jackson:
+    default-property-inclusion: non_null #json不序列为null的属性
+
 logging:
   config: classpath:logback-spring.xml
   level:

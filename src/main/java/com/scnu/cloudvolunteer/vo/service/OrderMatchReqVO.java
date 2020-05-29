@@ -1,6 +1,8 @@
 package com.scnu.cloudvolunteer.vo.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
  *  用户下单，系统匹配请求vo
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderMatchReqVO implements Serializable {
     private Integer userId;
     private Integer subject;
