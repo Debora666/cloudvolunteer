@@ -88,4 +88,12 @@
     select <include refid="selectAll"/>
     from admin
   </select>
+  <select id="selectAllAdmin2Count" resultType="com.scnu.cloudvolunteer.dao.pojo.Admin2Count">
+    select admin_id, account,  table_a.organization, `role`, volunteer_num
+    from
+    (select * from admin where `role` = 2) as table_a
+    left join
+    (select organization, COUNT(*) as volunteer_num  from volunteer group by organization) as table_b
+    on table_a.organization = table_b.organization
+  </select>
 </mapper>
