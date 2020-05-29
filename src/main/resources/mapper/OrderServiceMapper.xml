@@ -75,16 +75,16 @@
     where order_service_id = #{orderServiceId,jdbcType=INTEGER}
   </update>
 
-  <update id="updateStatusById" parameterType="java.lang.Integer" >
-    update order_service
-    set service_status = #{status}
-    where order_service_id = #{orderServiceId,jdbcType=INTEGER}
-  </update>
-
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select <include refid="selectAll"/>
     from order_service
     where order_service_id = #{orderServiceId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByServiceStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="selectAll"/>
+    from order_service
+    where service_status = #{status}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap" >

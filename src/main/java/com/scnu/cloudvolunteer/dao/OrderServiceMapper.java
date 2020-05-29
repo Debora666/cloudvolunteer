@@ -15,12 +15,7 @@ public interface OrderServiceMapper {
 
     List<OrderService> selectAll();
 
-    int updateBySelected(OrderService record);
+    List<OrderService> selectByServiceStatus(Integer status);
 
-    /**
-     * 更改服务订单状态
-     * @param status
-     * @return
-     */
-    int updateStatusById(Integer status);
+    int updateBySelected(OrderService record);
 }

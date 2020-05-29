@@ -8,6 +8,7 @@ import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true, value = {"updateDate","createDate"})
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"updateDate", "createDate"})
 public class Volunteer implements Serializable {
     private Integer volunteerId;
 

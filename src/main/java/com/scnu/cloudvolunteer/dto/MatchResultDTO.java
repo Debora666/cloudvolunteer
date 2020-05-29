@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Data
 public class MatchResultDTO implements Serializable {
     private Integer volunteerId;
+    private Integer subject;
+    private Integer section;
     private Integer organization;
     private Integer num;
 }

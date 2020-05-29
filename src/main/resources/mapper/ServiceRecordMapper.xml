@@ -14,6 +14,9 @@
 
   <resultMap id="MatchResultMap" type="com.scnu.cloudvolunteer.dto.MatchResultDTO">
     <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="INTEGER" />
+    <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="organization" property="organization" jdbcType="INTEGER" />
     <result column="num" property="num" jdbcType="INTEGER" />
   </resultMap>
 
@@ -118,6 +121,24 @@
     </trim>
   </insert>
 
+  <insert id="insertBatch" parameterType="java.util.List" >
+    <selectKey resultType="java.lang.Integer" keyProperty="serviceRecordId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into service_record
+    (
+        order_service_id, volunteer_id, user_id,
+        service_status, work_time, update_date, create_date
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        #{item.orderServiceId},#{item.volunteerId},#{item.userId},
+        #{item.serviceStatus},#{item.workTime},#{item.updateDate},#{item.createDate}
+      </trim>
+    </foreach>
+  </insert>
+
   <update id="updateBySelected" parameterType="com.scnu.cloudvolunteer.dao.pojo.ServiceRecord" >
     update service_record
     <set>
@@ -126,16 +147,10 @@
     where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
   </update>
 
-  <update id="updateStatusById" parameterType="java.lang.Integer" >
+  <update id="addWorkTimeByServiceId">
     update service_record
-    set service_status = #{status}
-    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
-  </update>
-
-  <update id="addWorkTimeByServiceId" parameterType="java.lang.Integer" >
-    update service_record
-    set work_time = work_time + #{addWorkTime}
-    where service_record_id = #{serviceRecordId,jdbcType=INTEGER}
+    set work_time = work_time + #{1}
+    where service_record_id = #{0}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -145,13 +160,13 @@
   </select>
 
   <select id="selectMatchVolunteer" resultMap="MatchResultMap" parameterType="com.scnu.cloudvolunteer.dto.ServiceMatchDTO" >
-    select v.volunteer_id, v.organization, COUNT(*) num from service_record s right join
-        (select volunteer_id, organization from volunteer where subject = #{subject} and
-            `section` = #{section} and service_time = #{serviceTime}) v
+    select v.volunteer_id, v.subject, v.`section`, v.organization, COUNT(*) num from service_record s right join
+        (select volunteer_id, organization from volunteer where subject &gt;= #{subject}
+        and `section` &gt;= #{section} and service_time = #{serviceTime}) v
         on s.volunteer_id = v.volunteer_id
         where s.service_status = 1
         GROUP BY s.volunteer_id HAVING COUNT(*) &lt; #{maxServiceNum}
-        ORDER BY num, s.volunteer_id asc LIMIT #{limitNum}
+        ORDER BY num, s.volunteer_id asc LIMIT #{offset}, #{limitNum}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap" >

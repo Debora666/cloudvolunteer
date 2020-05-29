@@ -127,16 +127,10 @@
     where volunteer_id = #{volunteerId,jdbcType=INTEGER}
   </update>
 
-  <update id="addWorkTimeByVolunteerId" parameterType="java.lang.Integer" >
+  <update id="addWorkTimeByVolunteerId">
     update volunteer
-    set total_work_time = total_work_time + #{addWorkTime}
-    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
-  </update>
-
-  <update id="updateStatusById" parameterType="java.lang.Integer" >
-    update volunteer
-    set status = #{checkStatus}
-    where volunteer_id = #{volunteerId,jdbcType=INTEGER}
+    set total_work_time = total_work_time + #{1}
+    where volunteer_id = #{0}
   </update>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

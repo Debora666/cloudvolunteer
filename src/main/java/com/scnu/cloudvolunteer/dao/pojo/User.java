@@ -1,14 +1,13 @@
 package com.scnu.cloudvolunteer.dao.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@JsonIgnoreProperties(ignoreUnknown = true, value = {"updateDate","createDate"})
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"updateDate", "createDate"})
 public class User implements Serializable {
     private Integer userId;
 

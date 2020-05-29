@@ -108,6 +108,7 @@ public class WxLoginService implements BaseService {
             // 非第一次登录,赋值响应参数
             resVO.setUser(user);
         }catch (Exception e){
+            logger.error("微信登录出错", e);
             throw new BaseException(ServiceEnum.DATABASE_ERROR);
         }
     }
@@ -138,6 +139,7 @@ public class WxLoginService implements BaseService {
             // 非第一次登录,赋值响应参数
             resVO.setVolunteer(volunteer);
         }catch (Exception e){
+            logger.error("微信登录出错", e);
             throw new BaseException(ServiceEnum.DATABASE_ERROR);
         }
     }

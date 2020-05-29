@@ -1,4 +1,4 @@
-package com.scnu.cloudvolunteer.vo.login;
+package com.scnu.cloudvolunteer.vo.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -7,13 +7,11 @@ import java.io.Serializable;
 
 /**
  * @author ：zzheng
- * @date ：2020/5/26
- * 微信登录请求vo
+ * @date ：2020/5/28
+ * 获取未匹配服务请求vo
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WxLoginReqVO implements Serializable {
-    private String code;
+public class GetNoMatchServiceReqVO implements Serializable {
 
-    private Integer role;
 }
