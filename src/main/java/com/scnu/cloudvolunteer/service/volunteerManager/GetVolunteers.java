@@ -2,6 +2,7 @@ package com.scnu.cloudvolunteer.service.volunteerManager;
 
 import com.scnu.cloudvolunteer.base.constant.RoleConstant;
 import com.scnu.cloudvolunteer.base.constant.SvcConstant;
+import com.scnu.cloudvolunteer.base.constant.VolunteerStatusConstant;
 import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.service.BaseService;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * @author     ：ben liang
@@ -45,12 +48,16 @@ public class GetVolunteers implements BaseService {
             case RoleConstant.ADMIN2:
                 volunteers = (ArrayList<Volunteer>)getVolunteersByOrganization(reqVO);
         }
+        volunteers = volunteersFilter(volunteers, new HashSet<Integer>() {{
+            add(VolunteerStatusConstant.CHECKING);
+            add(VolunteerStatusConstant.CHANGE_ORGANIZATION_CHECKING);
+            add(VolunteerStatusConstant.PASS);
+        }} );
         GetVolunteersResVO resVO = new GetVolunteersResVO();
         resVO.setVolunteers(volunteers);
 
         ResponseVO<GetVolunteersResVO> resVOResponseVO = new ResponseVO<>();
         resVOResponseVO.setData(resVO);
-
 
         return resVOResponseVO;
     }
@@ -76,13 +83,38 @@ public class GetVolunteers implements BaseService {
         }
     }
 
+    /**
+     * 获取系统中所有志愿者
+     * @return
+     */
     private ArrayList<Volunteer> getAllVolunteers(){
         return (ArrayList<Volunteer>)volunteerMapper.selectAll();
     }
 
+    /**
+     * 根据管理员所在的组织查询志愿者
+     * @param reqVO
+     * @return
+     */
     private ArrayList<Volunteer> getVolunteersByOrganization(GetVolunteersReqVO reqVO){
         Admin admin = adminMapper.selectByPrimaryKey(reqVO.getAdminId());
         return (ArrayList<Volunteer>)volunteerMapper.selectByOrganization(admin.getOrganization());
+    }
+
+
+    /**
+     * 过滤志愿者信息，去掉没有审核通过的志愿者
+     * @param volunteers
+     * @return
+     */
+    private ArrayList<Volunteer> volunteersFilter(ArrayList<Volunteer> volunteers, HashSet<Integer> accessRole){
+        Iterator<Volunteer> iterator = volunteers.iterator();
+        while(iterator.hasNext()){
+            if (!accessRole.contains(iterator.next())){
+                iterator.remove();
+            }
+        }
+        return volunteers;
     }
 
 }
