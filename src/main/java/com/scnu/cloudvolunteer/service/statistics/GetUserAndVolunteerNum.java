@@ -33,7 +33,7 @@ public class GetUserAndVolunteerNum implements BaseService {
         GetUserAndVolunteerNumResVO resVO = new GetUserAndVolunteerNumResVO();
         try {
             int userNum = userMapper.selectCount();
-            int volunteerNum = volunteerMapper.selectCount();
+            int volunteerNum = volunteerMapper.selectVolunteerCount();
             resVO.setUserNum(userNum);
             resVO.setVolunteerNum(volunteerNum);
         }catch (Exception e){

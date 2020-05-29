@@ -151,9 +151,10 @@
     where organization = #{organization}
   </select>
 
-  <select id="selectCount" resultType="java.lang.Integer">
+  <select id="selectVolunteerCount" resultType="java.lang.Integer">
     select count(*)
     from volunteer
+    where `status` &gt; 0
   </select>
 
 

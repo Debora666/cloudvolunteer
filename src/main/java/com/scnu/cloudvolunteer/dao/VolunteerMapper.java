@@ -24,8 +24,9 @@ public interface VolunteerMapper {
 
     /**
      * 查询志愿者人数
+     * status 大于0
       */
-    int selectCount();
+    int selectVolunteerCount();
 
     /**
      * 增加服务时间

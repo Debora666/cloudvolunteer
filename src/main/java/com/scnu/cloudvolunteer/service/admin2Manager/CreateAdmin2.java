@@ -13,6 +13,7 @@ import com.scnu.cloudvolunteer.utils.JsonUtil;
 import com.scnu.cloudvolunteer.vo.admin2manager.CreateAdmin2ReqVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
@@ -39,7 +40,8 @@ public class CreateAdmin2 implements BaseService {
         try {
             Admin newAdmin = new Admin();
             newAdmin.setAccount(reqVO.getAccount());
-            newAdmin.setPassword(reqVO.getPassword());
+            String passwordMD5 = DigestUtils.md5DigestAsHex(reqVO.getPassword().getBytes());
+            newAdmin.setPassword(passwordMD5);
             newAdmin.setOrganization(reqVO.getOrganization());
             newAdmin.setRole(RoleConstant.ADMIN2);
             newAdmin.setCreateDate(currTimestamp);
@@ -63,9 +65,8 @@ public class CreateAdmin2 implements BaseService {
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
         if(reqVO.getAdminId() == null
-                || StringUtils.hasText(reqVO.getAccount())
-                || StringUtils.hasText(reqVO.getAccount())
-                || StringUtils.hasText(reqVO.getPassword())
+                || !StringUtils.hasText(reqVO.getAccount())
+                || !StringUtils.hasText(reqVO.getPassword())
                 || reqVO.getOrganization() == null){
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }

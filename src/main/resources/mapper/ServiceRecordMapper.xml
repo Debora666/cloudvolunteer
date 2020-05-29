@@ -161,8 +161,8 @@
 
   <select id="selectMatchVolunteer" resultMap="MatchResultMap" parameterType="com.scnu.cloudvolunteer.dto.ServiceMatchDTO" >
     select v.volunteer_id, v.subject, v.`section`, v.organization, COUNT(*) num from service_record s right join
-        (select volunteer_id, organization from volunteer where subject &gt;= #{subject}
-        and `section` &gt;= #{section} and service_time = #{serviceTime}) v
+        (select volunteer_id, organization from volunteer where `status` &gt; 0
+        and subject &gt;= #{subject} and `section` &gt;= #{section} and service_time = #{serviceTime}) v
         on s.volunteer_id = v.volunteer_id
         where s.service_status = 1
         GROUP BY s.volunteer_id HAVING COUNT(*) &lt; #{maxServiceNum}
