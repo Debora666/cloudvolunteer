@@ -68,6 +68,8 @@ public class HandMatchService implements BaseService {
             logger.error("人工匹配出错", e);
             throw new BaseException(ServiceEnum.DATABASE_ERROR);
         }
+        logger.warn("管理员[{}]对服务订单[{}]进行人工匹配，匹配的志愿者为:{}"
+                , reqVO.getAdminId(), reqVO.getOrderServiceId(), reqVO.getVolunteerIds());
         return responseVO;
     }
 

@@ -14,6 +14,9 @@
 
   <resultMap id="MatchResultMap" type="com.scnu.cloudvolunteer.dto.MatchResultDTO">
     <result column="volunteer_id" property="volunteerId" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="INTEGER" />
+    <result column="section" property="section" jdbcType="INTEGER" />
+    <result column="organization" property="organization" jdbcType="INTEGER" />
     <result column="num" property="num" jdbcType="INTEGER" />
   </resultMap>
 
@@ -105,13 +108,13 @@
   </select>
 
   <select id="selectMatchVolunteer" resultMap="MatchResultMap" parameterType="com.scnu.cloudvolunteer.dto.ServiceMatchDTO" >
-    select v.volunteer_id, v.organization, COUNT(*) num from service_record s right join
-        (select volunteer_id, organization from volunteer where subject = #{subject} and
-            `section` = #{section} and service_time = #{serviceTime}) v
+    select v.volunteer_id, v.subject, v.`section`, v.organization, COUNT(*) num from service_record s right join
+        (select volunteer_id, organization from volunteer where subject &gt;= #{subject}
+        and `section` &gt;= #{section} and service_time = #{serviceTime}) v
         on s.volunteer_id = v.volunteer_id
         where s.service_status = 1
         GROUP BY s.volunteer_id HAVING COUNT(*) &lt; #{maxServiceNum}
-        ORDER BY num, s.volunteer_id asc LIMIT #{limitNum}
+        ORDER BY num, s.volunteer_id asc LIMIT #{offset}, #{limitNum}
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap" >

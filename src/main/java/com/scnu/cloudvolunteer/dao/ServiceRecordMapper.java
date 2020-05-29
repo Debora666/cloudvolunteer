@@ -23,7 +23,8 @@ public interface ServiceRecordMapper {
     ServiceRecord selectByPrimaryKey(Integer serviceId);
 
     /**
-     * 找出学段，科目，服务时间以及服务对象小于最大服务对象的志愿者
+     * 找出 服务时间 和 服务对象小于最大服务对象的志愿者
+     * 并初步根据 学段 和 科目 筛选结果->值小于用户的值的不可能匹配，过滤
      * @param serviceMatchDTO
      * @return
      */
