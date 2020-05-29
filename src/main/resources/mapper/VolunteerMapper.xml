@@ -148,7 +148,7 @@
   <select id="selectByOrganization" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select <include refid="selectAll"/>
     from volunteer
-    where organization = #{organization}
+    where organization = #{organization} and `status` &gt; 0
   </select>
 
   <select id="selectVolunteerCount" resultType="java.lang.Integer">

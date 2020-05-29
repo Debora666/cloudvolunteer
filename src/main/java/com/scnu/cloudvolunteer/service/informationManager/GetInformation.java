@@ -63,7 +63,7 @@ public class GetInformation implements BaseService {
                     if (reqVO.getRole() == RoleConstant.ADMIN2){
                         volunteerNum = volunteerMapper.selectByOrganization(admin.getOrganization()).size();
                     }else {
-                        volunteerNum = volunteerMapper.selectCount();
+                        volunteerNum = volunteerMapper.selectVolunteerCount();
                     }
                     resVO.setVolunteerNum(volunteerNum);
                     break;
