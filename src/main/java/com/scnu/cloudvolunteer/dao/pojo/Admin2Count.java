@@ -21,4 +21,6 @@ public class Admin2Count implements Serializable {
     private Integer organization;
 
     private Integer volunteerNum;
+
+    private static final long serialVersionUID = 1L;
 }
