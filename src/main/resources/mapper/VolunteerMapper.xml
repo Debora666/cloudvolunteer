@@ -8,7 +8,7 @@
     <result column="role" property="role" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="sex" property="sex" jdbcType="INTEGER" />
-    <result column="workTime" property="worktime" jdbcType="INTEGER" />
+    <result column="total_work_time" property="totalWorkTime" jdbcType="INTEGER" />
     <result column="organization" property="organization" jdbcType="INTEGER" />
     <result column="college" property="college" jdbcType="VARCHAR" />
     <result column="major" property="major" jdbcType="VARCHAR" />
@@ -161,5 +161,11 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select <include refid="selectAll"/>
     from volunteer
+  </select>
+
+  <select id="selectAllAvailableVolunteers" resultType="com.scnu.cloudvolunteer.dao.pojo.Volunteer">
+    select <include refid="selectAll"/>
+    from volunteer
+    where `status` &gt; 0
   </select>
 </mapper>

@@ -17,6 +17,8 @@ public interface VolunteerMapper {
 
     List<Volunteer> selectAll();
 
+    List<Volunteer> selectAllAvailableVolunteers();
+
     /**
      * 根据归属组织查询志愿者
       */
