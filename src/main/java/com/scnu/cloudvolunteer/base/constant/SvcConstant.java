@@ -75,4 +75,6 @@ public class SvcConstant {
     public static final String GET_NO_CHECK_SERVICE_RECORD = SERVICE_RECORD + "03";
     // 审核服务信息
     public static final String CHECK_SERVICE_RECORD = SERVICE_RECORD + "04";
+    // 查看某次服务的图片
+    public static final String GET_SERVICE_PICTURE_BASE64 = SERVICE_RECORD + "05";
 }
