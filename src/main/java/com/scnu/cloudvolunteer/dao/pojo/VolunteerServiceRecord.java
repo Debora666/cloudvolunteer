@@ -1,5 +1,7 @@
 package com.scnu.cloudvolunteer.dao.pojo;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -8,6 +10,7 @@ import java.util.Date;
  * @description：查看志愿者的服务记录实体
  * @modified By：
  */
+@Data
 public class VolunteerServiceRecord {
     private Integer serviceId;
 

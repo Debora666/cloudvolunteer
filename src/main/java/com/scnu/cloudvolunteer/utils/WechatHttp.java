@@ -67,11 +67,13 @@ public class WechatHttp extends BaseHttp {
   }
 
     /**
-     * 发送模板消息
+     * 发送订阅消息
      * @param accessToken
      * @param params
      * @return
      * @throws BaseException
+     * @modify by ben liang
+     * @modifyDate 2020/05/30
      */
 //  public static Map sendTemplateMsg(String accessToken, String params) throws BaseException {
 //      String requestUrl = URLS.SEND_TEMPLATE_URL + accessToken;
@@ -82,4 +84,6 @@ public class WechatHttp extends BaseHttp {
 //            .get("errcode")));
 //      return map;
 //  }
+
+
 }

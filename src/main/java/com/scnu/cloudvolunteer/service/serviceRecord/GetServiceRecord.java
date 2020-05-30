@@ -1,6 +1,7 @@
 package com.scnu.cloudvolunteer.service.serviceRecord;
 
 import com.scnu.cloudvolunteer.base.constant.RoleConstant;
+import com.scnu.cloudvolunteer.base.constant.SvcConstant;
 import com.scnu.cloudvolunteer.base.enums.ServiceEnum;
 import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * @description：查看所有服务记录
  * @modified By：
  */
-@Service
+@Service(SvcConstant.GET_SERVICE_RECORD)
 public class GetServiceRecord implements BaseService {
 
     @Autowired

@@ -1,5 +1,7 @@
 package com.scnu.cloudvolunteer.dao.pojo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ import java.util.Date;
  * @description：查看用户的服务记录实体
  * @modified By：
  */
+@Data
 public class UserServiceRecord implements Serializable {
     private Integer serviceId;
 
