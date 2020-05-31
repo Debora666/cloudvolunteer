@@ -1,7 +1,6 @@
 package com.scnu.cloudvolunteer.utils;
 
-import com.scnu.cloudvolunteer.base.constant.Rfc2397HeadersConstant;
-import com.scnu.cloudvolunteer.base.enums.AppEnum;
+import com.scnu.cloudvolunteer.base.constant.DataUrlSchemeHeadersConstant;
 import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.dto.FileContentDTO;
@@ -11,22 +10,22 @@ import java.util.Map;
 /**
  * @author ：ben liang
  * @date ：2020/5/31
- * @description：解析RFC2397工具类
+ * @description : 解析 Data URI scheme格式工具类
  * @modified By：
  */
-public class Rfc2397Util {
+public class DataUrlSchemeUtil {
 
 
     /**
-     * 返回转换后的结果
+     * 将Data URI scheme格式数据中取出文件数据并包装成FileContentDTO
      * @param source
-     * @return
+     * @return 返回转换后的FileContentDTO
      * @throws BaseException
      */
     public static FileContentDTO decryptByString(String source) throws BaseException {
         boolean resultFlag = false;
         FileContentDTO fileContentDTO = new FileContentDTO();
-        for(Map.Entry<String,String> entry: Rfc2397HeadersConstant.toHashMap().entrySet()){
+        for(Map.Entry<String,String> entry: DataUrlSchemeHeadersConstant.toHashMap().entrySet()){
             if(source.indexOf(entry.getValue()) == 0){
                 fileContentDTO.fileContent = source.replace(entry.getValue(),"");
                 fileContentDTO.fileType = entry.getKey();
@@ -38,12 +37,17 @@ public class Rfc2397Util {
         return fileContentDTO;
     }
 
-    public static String encryptToRfc2397String(FileContentDTO fileContentDTO){
-        return Rfc2397HeadersConstant.toHashMap().get(fileContentDTO.getFileType()) + fileContentDTO.fileContent;
+    /**
+     * 将以Base64读取到的文件转化为Data URI scheme 格式
+     * @param fileContentDTO 以Base64读取到的文件
+     * @return
+     */
+    public static String encryptToDataUrlScheme(FileContentDTO fileContentDTO){
+        return DataUrlSchemeHeadersConstant.toHashMap().get(fileContentDTO.getFileType()) + fileContentDTO.fileContent;
     }
 
 //    /**
-//     * 判断字符串是否为RFC2397格式
+//     * 判断字符串是否为Data URI scheme格式
 //     * @param source
 //     * @return 是则返true, 反之false
 //     */

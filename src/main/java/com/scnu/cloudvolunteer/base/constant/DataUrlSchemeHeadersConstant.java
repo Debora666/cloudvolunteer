@@ -7,10 +7,10 @@ import java.util.Map;
 /**
  * @author ：ben liang
  * @date ：2020/5/31
- * @description：RFC2397标准的头部常量
+ * @description： Data Url Scheme标准的头部常量
  * @modified By：
  */
-public class Rfc2397HeadersConstant {
+public class DataUrlSchemeHeadersConstant {
     //GIF文件
     public final static String GIF = "data:image/gif;base64,";
     //PNG文件
@@ -30,6 +30,10 @@ public class Rfc2397HeadersConstant {
 //        return new ArrayList<String>(Arrays.asList(gif,png,jpeg,icon,jpg));
 //    }
 
+    /**
+     * 输出支持的所有文件类型
+     * @return 输出支持的所有文件的arraylist
+     */
     public final static Map<String,String> toHashMap(){
         return new HashMap<String,String>(){{
             put("gif",GIF);

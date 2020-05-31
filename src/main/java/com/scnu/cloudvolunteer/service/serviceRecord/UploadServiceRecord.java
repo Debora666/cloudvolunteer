@@ -16,6 +16,7 @@ import com.scnu.cloudvolunteer.dto.FileContentDTO;
 import com.scnu.cloudvolunteer.dto.NocheckServiceDTO;
 import com.scnu.cloudvolunteer.utils.*;
 import com.scnu.cloudvolunteer.vo.serviceRecord.UpLoadServiceRecordReqVO;
+import com.sun.org.apache.bcel.internal.ExceptionConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,24 +54,32 @@ public class UploadServiceRecord implements BaseService {
         validation(reqVO);
         //文件路径
         ArrayList<String> fileNamesArrayList = new ArrayList<>();
-
+        //逐个保存文件
         for(int i = 0; i < reqVO.getFiles().size(); i++) {
             try {
-                FileContentDTO fileContentDTO = Rfc2397Util.decryptByString(reqVO.getFiles().get(i));
+                FileContentDTO fileContentDTO = DataUrlSchemeUtil.decryptByString(reqVO.getFiles().get(i));
                 String fileName = generateFileName(fileContentDTO.getFileType());
                 Path filePath = Paths.get(FilePathsConstant.SERVICE_RECORD_FILES_SAVE_PATH,
                         reqVO.getVolunteerId().toString(),
                         reqVO.getServiceRecordId().toString(),
                         fileName);
+                //将Base64形式的流文件写入
                 Base64Util.decryptByBase64(reqVO.getFiles().get(0),filePath);
+                //记录文件名
                 fileNamesArrayList.add(fileName);
             } catch (Exception e) {
                 throw new BaseException(AppEnum.APP_ERROR);
             }
         }
+        ServiceRecord serviceRecord = new ServiceRecord();
+        Volunteer volunteer = new Volunteer();
+        try{
+            serviceRecord = serviceRecordMapper.selectByPrimaryKey(reqVO.getServiceRecordId());
+            volunteer = volunteerMapper.selectByPrimaryKey(reqVO.getVolunteerId());
+        }catch(Exception e){
+            new BaseException(ServiceEnum.DATABASE_ERROR);
+        }
 
-        ServiceRecord serviceRecord = serviceRecordMapper.selectByPrimaryKey(reqVO.getServiceRecordId());
-        Volunteer volunteer = volunteerMapper.selectByPrimaryKey(reqVO.getVolunteerId());
         //开始写入单次服务信息
         NocheckServiceDTO nocheckServiceDTO = new NocheckServiceDTO();
         nocheckServiceDTO.setCreateTime(currTime);
@@ -92,23 +101,36 @@ public class UploadServiceRecord implements BaseService {
             throw new BaseException(ServiceEnum.DATABASE_ERROR);
         }
 
-
         ResponseVO<Integer> responseVO = new ResponseVO<>();
         return responseVO;
     }
 
+    /**
+     * 根据时间来生成文件名
+     * @return
+     */
     private String generateFileName(){
         Long timeStamp = System.currentTimeMillis() + 1;
         String result = String.valueOf(timeStamp);
         return result;
     }
 
+    /**
+     * 根据时间来生成带有后缀的文件名
+     * @param suffix 文件后缀
+     * @return
+     */
     private String generateFileName(String suffix){
         String result = generateFileName() + "." + suffix;
         return result;
     }
 
 
+    /**
+     * 入参检查
+     * @param reqVO
+     * @throws BaseException
+     */
     private void validation(UpLoadServiceRecordReqVO reqVO) throws BaseException{
         if(reqVO == null){
             throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
