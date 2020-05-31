@@ -13,7 +13,8 @@ import java.util.ArrayList;
  * @modified By：
  */
 @Data
-public class SingleServiceDTO implements Serializable {
+public class NocheckServiceDTO implements Serializable {
+
     private Integer volunteerId;
 
     private Integer serviceRecordId;
@@ -25,6 +26,8 @@ public class SingleServiceDTO implements Serializable {
     private Timestamp createTime;
 
     private Integer orderServiceId;
+
+    private Integer organization;
 
     private static final long serialVersionUID = 1L;
 }

@@ -9,9 +9,11 @@ import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.service.BaseService;
 import com.scnu.cloudvolunteer.base.vo.ResponseVO;
 import com.scnu.cloudvolunteer.dao.ServiceRecordMapper;
+import com.scnu.cloudvolunteer.dao.VolunteerMapper;
 import com.scnu.cloudvolunteer.dao.pojo.ServiceRecord;
+import com.scnu.cloudvolunteer.dao.pojo.Volunteer;
 import com.scnu.cloudvolunteer.dto.FileContentDTO;
-import com.scnu.cloudvolunteer.dto.SingleServiceDTO;
+import com.scnu.cloudvolunteer.dto.NocheckServiceDTO;
 import com.scnu.cloudvolunteer.utils.*;
 import com.scnu.cloudvolunteer.vo.serviceRecord.UpLoadServiceRecordReqVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class UploadServiceRecord implements BaseService {
     @Autowired
     RedisUtil redisUtil;
 
+    @Autowired
+    VolunteerMapper volunteerMapper;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseVO service(String request) throws BaseException {
@@ -48,6 +53,7 @@ public class UploadServiceRecord implements BaseService {
         validation(reqVO);
         //文件路径
         ArrayList<String> fileNamesArrayList = new ArrayList<>();
+
         for(int i = 0; i < reqVO.getFiles().size(); i++) {
             try {
                 FileContentDTO fileContentDTO = Rfc2397Util.decryptByString(reqVO.getFiles().get(i));
@@ -64,19 +70,21 @@ public class UploadServiceRecord implements BaseService {
         }
 
         ServiceRecord serviceRecord = serviceRecordMapper.selectByPrimaryKey(reqVO.getServiceRecordId());
-
+        Volunteer volunteer = volunteerMapper.selectByPrimaryKey(reqVO.getVolunteerId());
         //开始写入单次服务信息
-        SingleServiceDTO singleServiceDTO = new SingleServiceDTO();
-        singleServiceDTO.setCreateTime(currTime);
-        singleServiceDTO.setVolunteerId(reqVO.getVolunteerId());
-        singleServiceDTO.setServiceRecordId(reqVO.getServiceRecordId());
-        singleServiceDTO.setFileNameArrayList(fileNamesArrayList);
-        singleServiceDTO.setWorkTime(reqVO.getWorkTime());
-        singleServiceDTO.setOrderServiceId(serviceRecord.getOrderServiceId());
+        NocheckServiceDTO nocheckServiceDTO = new NocheckServiceDTO();
+        nocheckServiceDTO.setCreateTime(currTime);
+        nocheckServiceDTO.setVolunteerId(reqVO.getVolunteerId());
+        nocheckServiceDTO.setServiceRecordId(reqVO.getServiceRecordId());
+        nocheckServiceDTO.setFileNameArrayList(fileNamesArrayList);
+        nocheckServiceDTO.setWorkTime(reqVO.getWorkTime());
+        nocheckServiceDTO.setOrderServiceId(serviceRecord.getOrderServiceId());
+        nocheckServiceDTO.setOrganization(volunteer.getOrganization());
+
         //获取为未审核的服务记录Map
         Map<String, Object> serviceRecordMap = redisUtil.getHash(RedisKeyUtil.getUncheckedServiceRecordMapKey());
-        String serviceOrderId = singleServiceDTO.getServiceRecordId() + "-" + currTime;
-        serviceRecordMap.put(serviceOrderId,singleServiceDTO);
+        String serviceOrderId = nocheckServiceDTO.getServiceRecordId() + "-" + currTime;
+        serviceRecordMap.put(serviceOrderId, nocheckServiceDTO);
         //写入Redis
         try{
             redisUtil.setHash(RedisKeyUtil.getUncheckedServiceRecordMapKey(),serviceRecordMap);
