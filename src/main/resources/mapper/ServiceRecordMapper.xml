@@ -21,9 +21,10 @@
   </resultMap>
 
   <resultMap id="VolunteerServiceRecord" type="com.scnu.cloudvolunteer.dao.pojo.VolunteerServiceRecord">
-    <id column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <id column="order_service_id" property="orderServiceId" jdbcType="INTEGER" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
     <result column="update_data" property="updateDate" jdbcType="TIMESTAMP"/>
+    <result column="service_record_id" property="serviceRecordId" javaType="INTEGER"/>
     <!--User标签-->
     <association property="user" column="user_id" resultMap="UserInfoResultMap"></association>
   </resultMap>
@@ -42,7 +43,7 @@
   </resultMap>
 
   <resultMap id="UserServiceRecord" type="com.scnu.cloudvolunteer.dao.pojo.UserServiceRecord">
-    <id column="service_id" property="serviceId" jdbcType="INTEGER" />
+    <id column="order_service_id" property="orderServiceId" jdbcType="INTEGER" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
     <result column="update_data" property="updateDate" jdbcType="TIMESTAMP"/>
     <result column="servic_status" property = "serviceStatus" jdbcType="INTEGER"/>
@@ -176,9 +177,10 @@
 
   <select id="selectByUserId" resultType="com.scnu.cloudvolunteer.dao.pojo.UserServiceRecord">
     select
-      table_a.service_id as service_id,
+      table_a.order_service_id as order_service_id,
       table_a.create_date as create_date,
       table_a.update_date as update_date,
+
       service_status,
       table_a.volunteer_id as volunteer_id,
       `status` as volunteer_status,
@@ -210,7 +212,7 @@
 			create_date,
 			service_status
          from
-        (select * from service where user_id = #{userId}) as table_x
+        (select * from service_record where user_id = #{userId}) as table_x
         left join
         (select order_service_id, service_status from order_service) as table_y
         on table_x.order_service_id = table_y.order_service_id)as table_a
@@ -222,9 +224,10 @@
 
   <select id="selectByVolunteerId" resultType="com.scnu.cloudvolunteer.dao.pojo.VolunteerServiceRecord">
    select
-    service_id,
+    order_service_id,
     create_date,
     update_date,
+    service_record_id,
     table_b.user_id,
     `role` as user_role,
     parent_name as user_parent_name,
@@ -237,11 +240,11 @@
     phone as user_phone
     from
     (select *
-    from service
+    from service_record
     where volunteer_id = #{volunteerId}) as table_a
     left join
     (select user_id, `role`,parent_name, `name`, sex, section, grade, address, wechat, phone
-    from user) as table_b
+    from `user`) as table_b
     on table_a.user_id = table_b.user_id
   </select>
 

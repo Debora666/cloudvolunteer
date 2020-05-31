@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @Data
 public class UserServiceRecord implements Serializable {
-    private Integer serviceId;
+    private Integer orderServiceId;
 
     private Date createDate;
 

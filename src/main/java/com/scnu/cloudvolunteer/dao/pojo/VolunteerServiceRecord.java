@@ -12,11 +12,13 @@ import java.util.Date;
  */
 @Data
 public class VolunteerServiceRecord {
-    private Integer serviceId;
+    private Integer orderServiceId;
 
     private Date createDate;
 
     private Date updateDate;
+
+    private Integer serviceRecordId;
 
     private User user;
 
