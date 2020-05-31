@@ -31,6 +31,19 @@ public interface VolunteerMapper {
     int selectVolunteerCount();
 
     /**
+     * 二级管理员根据组织查询所有 待审核 和 更改组织 的志愿者
+     * @param organization
+     * @return
+     */
+    List<Volunteer> selectWaitCheckVolunteerByAdmin2(Integer organization);
+
+    /**
+     * 一级管理员查询所有 待审核 和 更改组织 的志愿者
+     * @return
+     */
+    List<Volunteer> selectAllWaitCheckVolunteer();
+
+    /**
      * 增加服务时间
      * @return
      */

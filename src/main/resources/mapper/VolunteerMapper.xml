@@ -157,6 +157,18 @@
     where `status` &gt; 0
   </select>
 
+  <select id="selectWaitCheckVolunteerByAdmin2" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="selectAll"/>
+    from volunteer
+    where organization = #{organization} and (`status` = 0 or `status` = 1)
+  </select>
+
+  <select id="selectAllWaitCheckVolunteer" resultMap="BaseResultMap">
+    select <include refid="selectAll"/>
+    from volunteer
+    where `status` = 0 or `status` = 1
+  </select>
+
 
   <select id="selectAll" resultMap="BaseResultMap" >
     select <include refid="selectAll"/>
