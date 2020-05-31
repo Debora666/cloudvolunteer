@@ -47,7 +47,7 @@
     <result column="update_data" property="updateDate" jdbcType="TIMESTAMP"/>
     <result column="servic_status" property = "serviceStatus" jdbcType="INTEGER"/>
     <!--Volunteer标签-->
-    <association property="volunterr" column="volunteer_id" resultMap="VolunteerInfoResultMap"></association>
+    <association property="volunteer" column="volunteer_id" resultMap="VolunteerInfoResultMap"></association>
   </resultMap>
 
   <resultMap id="VolunteerInfoResultMap" type="com.scnu.cloudvolunteer.dao.pojo.Volunteer">
