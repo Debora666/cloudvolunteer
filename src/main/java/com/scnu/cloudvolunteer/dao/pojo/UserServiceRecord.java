@@ -21,7 +21,7 @@ public class UserServiceRecord implements Serializable {
 
     private Integer serviceStatus;
 
-    private Volunteer volunterr;
+    private Volunteer volunteer;
 
     private static final long serialVersionUID = 1L;
 }
