@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author ：zzheng
- * @date ：2020/5/29
- * 查看志愿者注册
+ * @author ：liuliangxin
+ * @date ：2020/6/1
+ * 普通用户登录
  */
 @Service(SvcConstant.USER_REGISTER)
 public class UserRegisterService implements BaseService {

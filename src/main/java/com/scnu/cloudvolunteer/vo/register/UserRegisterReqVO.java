@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author ：zzheng
+ * @author ：liuliangxin
  * @date ：2020/6/1
  * 普通用户注册 请求vo
  */
