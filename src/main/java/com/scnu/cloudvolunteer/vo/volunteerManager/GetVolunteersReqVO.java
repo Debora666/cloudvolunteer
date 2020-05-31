@@ -1,5 +1,6 @@
 package com.scnu.cloudvolunteer.vo.volunteerManager;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  * 查看志愿者请求vo
  */
 @Data
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GetVolunteersReqVO implements Serializable {
 
     private Integer adminId;

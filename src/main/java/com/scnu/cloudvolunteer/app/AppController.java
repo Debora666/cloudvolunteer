@@ -3,6 +3,7 @@ package com.scnu.cloudvolunteer.app;
 import com.scnu.cloudvolunteer.base.enums.BaseEnum;
 import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
+import com.scnu.cloudvolunteer.base.service.BaseFileService;
 import com.scnu.cloudvolunteer.base.service.BaseService;
 import com.scnu.cloudvolunteer.base.vo.ResponseVO;
 import com.scnu.cloudvolunteer.utils.JsonUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author ：zzheng
@@ -60,10 +62,13 @@ public class AppController {
     }
 
 //    @PostMapping("/cloudvolunteer/file")
-//    public String file(AutoUploadReqVo request, list<MultipartFile> files, @RequestHeader String svc){
+//    public String file(AutoUploadReqVo request,
+//                       list<MultipartFile> files,
+//                       @RequestHeader String svc,
+//                       @RequestHeader(value = "content-type") String contentType){
 //        logger.info("接收前端请求, svc:[{}], request:[{}]，fileName:[{}]", svc, request, file.getOriginalFilename());
 //        String response;
-//        ResponseVo responseVo;
+//        ResponseVO responseVo;
 //        try{
 //            // 校验svc
 //            validationFile(svc);

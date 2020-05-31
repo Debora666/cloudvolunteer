@@ -44,8 +44,10 @@ public class GetVolunteers implements BaseService {
         switch(reqVO.getRole()){
             case RoleConstant.ADMIN:
                 volunteers = (ArrayList<Volunteer>)getAllAvailableVolunteers();
+                break;
             case RoleConstant.ADMIN2:
                 volunteers = (ArrayList<Volunteer>)getVolunteersByOrganization(reqVO);
+                break;
         }
         GetVolunteersResVO resVO = new GetVolunteersResVO();
         resVO.setVolunteers(volunteers);
