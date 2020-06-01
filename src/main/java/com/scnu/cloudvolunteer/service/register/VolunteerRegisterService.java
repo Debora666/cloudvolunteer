@@ -68,6 +68,7 @@ public class VolunteerRegisterService implements BaseService {
             volunteer.setWechat(reqVO.getWechat());
             volunteer.setPhone(reqVO.getPhone());
             volunteer.setRemark(reqVO.getRemark());
+            volunteer.setStatus(0);
             volunteerMapper.updateBySelected(volunteer);
 
         }catch (Exception e){
