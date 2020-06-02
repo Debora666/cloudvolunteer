@@ -5,6 +5,7 @@ import com.scnu.cloudvolunteer.base.constant.UrlConstant;
 import com.scnu.cloudvolunteer.base.enums.ServiceEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import com.scnu.cloudvolunteer.base.http.BaseHttp;
+import com.scnu.cloudvolunteer.vo.subscribeMessageVO.SendSubscribeMessagerReqVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,21 +70,22 @@ public class WechatHttp extends BaseHttp {
     /**
      * 发送订阅消息
      * @param accessToken
-     * @param params
+     * @param reqVO
      * @return
      * @throws BaseException
      * @modify by ben liang
-     * @modifyDate 2020/05/30
+     * @modifyDate 2020/06/1
      */
-//  public static Map sendTemplateMsg(String accessToken, String params) throws BaseException {
-//      String requestUrl = URLS.SEND_TEMPLATE_URL + accessToken;
-//      String respponse = doPost(requestUrl, params);
-//      Map<String, Object> map = JsonUtil.string2Obj(respponse, HashMap.class);
-//      if (map == null || (map.containsKey("errcode") && !(map.get("errcode") + "").equals("0")))
-//        throw new BaseException(ExceptionCode.API_EXCEPTION, "微信小程序发送模板消息api失败-错误码" + ((map == null) ? "" : map
-//            .get("errcode")));
-//      return map;
-//  }
+  public static Map sendTemplateMsg(String accessToken, SendSubscribeMessagerReqVO reqVO) throws BaseException {
+      String requestUrl = UrlConstant.SEND_TEMPLATE_URL + accessToken;
+      String params = JsonUtil.object2Json(reqVO);
+      String respponse = doPost(requestUrl, params);
+      Map<String, Object> map = JsonUtil.string2Obj(respponse, HashMap.class);
+      if (map == null || (map.containsKey("errcode") && !(map.get("errcode") + "").equals("0")))
+        throw new BaseException(ServiceEnum.WECHAT_SEND_TEMPLATE_ERROR.getCode(), "微信小程序发送模板消息api失败-错误码" + ((map == null) ? "" : map
+            .get("errcode")));
+      return map;
+  }
 
 
 }
