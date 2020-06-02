@@ -16,11 +16,9 @@ import com.scnu.cloudvolunteer.dto.FileContentDTO;
 import com.scnu.cloudvolunteer.dto.NocheckServiceDTO;
 import com.scnu.cloudvolunteer.utils.*;
 import com.scnu.cloudvolunteer.vo.serviceRecord.UpLoadServiceRecordReqVO;
-import com.sun.org.apache.bcel.internal.ExceptionConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;

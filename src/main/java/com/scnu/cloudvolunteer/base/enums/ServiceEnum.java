@@ -19,6 +19,7 @@ public enum ServiceEnum {
     WECHAT_LOGIN_CODE_ERROR("C0211", "微信登录code无效"),
     WECHAT_LOGIN_TIME_OUT("C0212", "微信登录超时"),
     WECHAT_SEND_TEMPLATE_ERROR("C0220", "微信发送模板消息出错"),
+    JSON_TRANSFORM_ERROR("C0300", "Json数据转化出错"),
     ;
 
     private final String code;

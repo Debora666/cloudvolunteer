@@ -3,7 +3,6 @@ package com.scnu.cloudvolunteer.app;
 import com.scnu.cloudvolunteer.base.enums.BaseEnum;
 import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
-import com.scnu.cloudvolunteer.base.service.BaseFileService;
 import com.scnu.cloudvolunteer.base.service.BaseService;
 import com.scnu.cloudvolunteer.base.vo.ResponseVO;
 import com.scnu.cloudvolunteer.utils.JsonUtil;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author ：zzheng
@@ -27,8 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class AppController {
     private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 
-    @PostMapping("/cloudvolunteer")
-    public String app(@RequestBody String request, @RequestHeader String svc){
+    @PostMapping("/json")
+    public String app(@RequestBody(required = false) String request, @RequestHeader String svc){
         logger.info("接收前端请求, svc:[{}], request:[{}]", svc, request);
         String response;
         ResponseVO responseVo;
