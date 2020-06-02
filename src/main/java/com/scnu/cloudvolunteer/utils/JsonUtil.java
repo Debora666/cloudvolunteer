@@ -3,9 +3,12 @@ package com.scnu.cloudvolunteer.utils;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scnu.cloudvolunteer.base.enums.AppEnum;
+import com.scnu.cloudvolunteer.base.enums.ServiceEnum;
+import com.scnu.cloudvolunteer.base.enums.UserEnum;
 import com.scnu.cloudvolunteer.base.exception.BaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
@@ -27,13 +30,14 @@ public class JsonUtil {
      */
     public static <T> String object2Json(T obj) throws BaseException {
         if (obj == null) {
-            return null;
+            logger.error("object2Json出错，实体类为null");
+            throw new BaseException(AppEnum.APP_ERROR);
         }
         try {
             return mapper.writeValueAsString(obj);
         } catch (IOException e) {
             logger.error("object2Json出错", e);
-            throw new BaseException(AppEnum.APP_ERROR);
+            throw new BaseException(ServiceEnum.JSON_TRANSFORM_ERROR);
         }
     }
 
@@ -45,14 +49,14 @@ public class JsonUtil {
      * @return
      */
     public static <T> T string2Obj(String str, Class<T> clazz)  throws BaseException {
-        if (str.length() == 0 || clazz == null) {
-            return null;
+        if (!StringUtils.hasText(str) || clazz == null) {
+            throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
         }
         try {
             return mapper.readValue(str, clazz);
         } catch (IOException e) {
-            logger.error("object2Json出错", e);
-            throw new BaseException(AppEnum.APP_ERROR);
+            logger.error("string2Obj出错", e);
+            throw new BaseException(ServiceEnum.JSON_TRANSFORM_ERROR);
         }
     }
 
@@ -66,12 +70,15 @@ public class JsonUtil {
      */
     public static <T> T string2Obj(String str, Class<?> collectionClass, Class... elementClasses)
             throws BaseException {
+        if (!StringUtils.hasText(str) || collectionClass ==null || elementClasses == null) {
+            throw new BaseException(UserEnum.REQUEST_PARAM_NULL);
+        }
         JavaType javaType = mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
         try {
             return (T)mapper.readValue(str, javaType);
         } catch (IOException e) {
-            logger.error("object2Json出错", e);
-            throw new BaseException(AppEnum.APP_ERROR);
+            logger.error("string2Obj出错", e);
+            throw new BaseException(ServiceEnum.JSON_TRANSFORM_ERROR);
         }
     }
 }

@@ -26,6 +26,17 @@
             <!-- 控制台也要使用utf-8，不要使用gbk -->
             <charset>UTF-8</charset>
         </encoder>
+        <!--        过滤器，执行一个过滤器会有返回个枚举值，即DENY，NEUTRAL，ACCEPT其中之一。-->
+        <!--        返回DENY，日志将立即被抛弃不再经过其他过滤器；返回NEUTRAL，有序列表里的下个过滤器过接着处理日志；-->
+        <!--        返回ACCEPT，日志会被立即处理，不再经过剩余过滤器。-->
+        <!--        <level>:设置过滤级别-->
+        <!--        <onMatch>:用于配置符合过滤条件的操作-->
+        <!--        <onMismatch>:用于配置不符合过滤条件的操作-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>info</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
     </appender>
 
     <!-- RollingFileAppender:滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 -->
@@ -54,6 +65,17 @@
             <!-- 记录日志的编码 -->
             <charset>UTF-8</charset> <!-- 此处设置字符集 -->
         </encoder>
+        <!--        过滤器，执行一个过滤器会有返回个枚举值，即DENY，NEUTRAL，ACCEPT其中之一。-->
+        <!--        返回DENY，日志将立即被抛弃不再经过其他过滤器；返回NEUTRAL，有序列表里的下个过滤器过接着处理日志；-->
+        <!--        返回ACCEPT，日志会被立即处理，不再经过剩余过滤器。-->
+        <!--        <level>:设置过滤级别-->
+        <!--        <onMatch>:用于配置符合过滤条件的操作-->
+        <!--        <onMismatch>:用于配置不符合过滤条件的操作-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
     <appender name="cloudvolunteer-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -79,21 +101,32 @@
             <!-- 记录日志的编码 -->
             <charset>UTF-8</charset> <!-- 此处设置字符集 -->
         </encoder>
+<!--        过滤器，执行一个过滤器会有返回个枚举值，即DENY，NEUTRAL，ACCEPT其中之一。-->
+<!--        返回DENY，日志将立即被抛弃不再经过其他过滤器；返回NEUTRAL，有序列表里的下个过滤器过接着处理日志；-->
+<!--        返回ACCEPT，日志会被立即处理，不再经过剩余过滤器。-->
+<!--        <level>:设置过滤级别-->
+<!--        <onMatch>:用于配置符合过滤条件的操作-->
+<!--        <onMismatch>:用于配置不符合过滤条件的操作-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
+<!--    <logger name="cn.scnu.cloudvolunteer" additivity="false" level="ERROR">-->
+<!--        <appender-ref ref="cloudvolunteer-error"/>-->
+<!--    </logger>-->
 
     <!-- 控制台日志输出级别 -->
-    <root level="info">
-        <appender-ref ref="STDOUT" />
-    </root>
+
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- com.appley为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="cn.scnu.cloudvolunteer" additivity="false" level="WARN">
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="cloudvolunteer-warn"/>
-    </logger>
-
-    <logger name="cn.scnu.cloudvolunteer" additivity="false" level="ERROR">
         <appender-ref ref="cloudvolunteer-error"/>
-    </logger>
+    </root>
+
 </configuration>
