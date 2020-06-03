@@ -22,4 +22,5 @@ public class WxLoginResVO implements Serializable {
 
     private Volunteer volunteer;
 
+
 }

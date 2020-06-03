@@ -13,6 +13,7 @@ public enum UserEnum {
     USER_LOGIN_ERROR("A0200", "用户登录错误"),
 
     USER_NOT_EXIST("A0201","管理员账号不存在"),
+    USER_PASSWORD_ERROR("A0202","管理员密码错误"),
     REQUEST_PARAM_ERROR("A0300", "请求参数错误"),
     REQUEST_PARAM_NULL("A0301", "请求必填参数为空"),
     REQUEST_PARAM_RANGE_ERROE("A0302", "请求参数超出允许的范围"),
